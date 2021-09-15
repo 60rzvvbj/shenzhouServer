@@ -4,4 +4,4 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/shenzhou?serverTimezone=UTC
     type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver

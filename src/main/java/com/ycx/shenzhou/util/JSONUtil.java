@@ -1,0 +1,21 @@
+package com.ycx.shenzhou.util;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JSONUtil {
+    private static ObjectMapper objectMapper;
+
+    static {
+        objectMapper = new ObjectMapper();
+    }
+
+    public static String objectToString(Object o) {
+        try {
+            return objectMapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

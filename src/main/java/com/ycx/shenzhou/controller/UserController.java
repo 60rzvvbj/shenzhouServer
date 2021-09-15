@@ -18,9 +18,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(User user) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        List<User> users =  userService.getAllUser();
-        String s = mapper.writeValueAsString(users.get(0));
-        return s;
+        System.out.println(user);
+        return "{message: 注册成功}";
     }
 }
