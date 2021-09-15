@@ -1,11 +1,11 @@
 package com.ycx.shenzhou.pojo;
 
 public class User {
-    private String account;
-    private String pwd;
-    private String username;
-    private String other;
-    private int balance;
+    private String account; // 账号
+    private String pwd; // 密码
+    private String username; // 用户名
+    private String other; // 其它信息
+    private int balance; // 余额
 
     public String getAccount() {
         return account;
