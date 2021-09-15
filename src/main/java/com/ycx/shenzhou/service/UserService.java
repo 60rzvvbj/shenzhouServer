@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface UserService {
 
-    public List<User> getAllUser();
+    List<User> getAllUser();
+
+    boolean register(String account, String pwd, String username);
 
 }

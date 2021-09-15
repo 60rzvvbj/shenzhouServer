@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUser() {
         return userMapper.getAllUser();
     }
+
+    @Override
+    public boolean register(String account, String pwd, String username) {
+        return !account.equals("1808078515");
+    }
 }
