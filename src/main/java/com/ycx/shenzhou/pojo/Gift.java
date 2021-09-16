@@ -4,7 +4,7 @@ public class Gift {
     private String id; //礼品编号
     private String name; //礼品名称
     private String describe; //礼品描述
-    private Long price; //礼品价格
+    private long price; //礼品价格
 
     public String getId() {
         return id;
