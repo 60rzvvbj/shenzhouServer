@@ -36,4 +36,14 @@ public class UserServiceImpl implements UserService {
     public boolean changePwd(String account, String oldPwd, String newPwd) {
         return false;
     }
+
+    @Override
+    public String getToken(String account) {
+        return "" + account.hashCode();
+    }
+
+    @Override
+    public boolean testToken(String account, String token) {
+        return ("" + account.hashCode()).equals(token);
+    }
 }

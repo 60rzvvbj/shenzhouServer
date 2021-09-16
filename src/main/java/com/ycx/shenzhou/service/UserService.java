@@ -13,4 +13,8 @@ public interface UserService {
     boolean login(String account, String pwd);
 
     boolean changePwd(String account, String oldPwd, String newPwd);
+
+    String getToken(String account);
+
+    boolean testToken(String account, String token);
 }

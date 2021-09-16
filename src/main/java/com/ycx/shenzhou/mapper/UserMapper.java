@@ -2,6 +2,7 @@ package com.ycx.shenzhou.mapper;
 
 import com.ycx.shenzhou.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 

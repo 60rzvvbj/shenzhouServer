@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -19,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/register")
-    public String register(String account, String pwd, String username) {
+    public String register(HttpServletRequest request, String account, String pwd, String username) {
         boolean res = userService.register(account, pwd, username);
         BaseData baseData;
         if (res) {
@@ -42,7 +43,7 @@ public class UserController {
         BaseData baseData;
         if (res) {
             LoginData loginData = new LoginData();
-            loginData.token = "" + account.hashCode();
+            loginData.token = userService.getToken(account);
 
             baseData = BaseData.getSuccessBaseData();
             baseData.setMessage("登录成功");
@@ -65,7 +66,6 @@ public class UserController {
             baseData = BaseData.getErrorBaseData();
             baseData.setMessage("修改失败");
         }
-
         return JSONUtil.objectToString(baseData);
     }
 }
