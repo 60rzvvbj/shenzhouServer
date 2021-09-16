@@ -26,7 +26,7 @@ create table article (
 	-- 点赞数通过其它表计算
 );
 
-insert into article values(null, '真不错', '广金', '广东', 1234567, '广金真不错', '1808078515');
+insert into article values(null, '真不错', '天安门', '北京', 1234567, '天安门真不错', '1808078515');
 
 -- 导游
 create table guide(
@@ -128,4 +128,34 @@ from article as a, (
 ) as t
 where a.id = 1;
 
-select * from article, (select count(*) as thumb from thumb where id = aid) as t where id = 1;
+select article.*, if(thumb is null, 0, thumb)
+from article 
+left join (
+	select aid, count(aid) as thumb
+	from thumb
+) as t
+on id = aid
+where aid = 1;
+
+select article.*, if(thumb is null, 0, thumb)
+from article
+left join (
+	select aid, count(aid) as thumb
+	from thumb
+	group by aid
+) as t
+on id = aid
+limit 0, 10;
+
+select article.*, if(thumb is null, 0, thumb)
+from article
+left join (
+	select aid, count(aid) as thumb
+	from thumb
+	group by aid
+) as t
+on id = aid
+where province = '广东'
+limit 0, 10;
+
+update article set a = a where id = id

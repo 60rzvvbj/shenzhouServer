@@ -14,6 +14,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    // 每页的数量
+    private final int NUMBER = 10;
+
     @Override
     public Article getArticle(String id) {
         return articleMapper.getArticleById(id);
@@ -21,26 +24,27 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> getArticleByPage(int page) {
-        return null;
+        return articleMapper.getArticleByPage(page * NUMBER, NUMBER);
     }
 
     @Override
     public List<Article> getArticleByProvince(String province, int page) {
-        return null;
+        return articleMapper.getArticleByProvince(province, page * NUMBER, NUMBER);
     }
 
     @Override
-    public int addArticle(Article article) {
-        return 0;
+    public String addArticle(Article article) {
+        articleMapper.addArticle(article);
+        return article.getId();
     }
 
     @Override
     public boolean modifyArticle(Article article) {
-        return false;
+        return articleMapper.modifyArticle(article) > 0;
     }
 
     @Override
     public boolean removeArticle(String id) {
-        return false;
+        return articleMapper.removeArticle(id) > 0;
     }
 }

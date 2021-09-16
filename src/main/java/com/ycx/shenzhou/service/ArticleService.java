@@ -14,7 +14,7 @@ public interface ArticleService {
     List<Article> getArticleByProvince(String province, int page);
 
     // 发表文章
-    int addArticle(Article article);
+    String addArticle(Article article);
 
     // 修改文章
     boolean modifyArticle(Article article);
