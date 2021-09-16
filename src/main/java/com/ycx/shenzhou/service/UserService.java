@@ -10,4 +10,7 @@ public interface UserService {
 
     boolean register(String account, String pwd, String username);
 
+    boolean login(String account, String pwd);
+
+    boolean changePwd(String account, String oldPwd, String newPwd);
 }

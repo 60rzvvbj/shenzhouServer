@@ -18,27 +18,54 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private class RegisterData {
-        public String account;
-        public String username;
-    }
-
     @GetMapping("/register")
     public String register(String account, String pwd, String username) {
         boolean res = userService.register(account, pwd, username);
         BaseData baseData;
         if (res) {
-            RegisterData registerData = new RegisterData();
-            registerData.account = account;
-            registerData.username = username;
-
             baseData = BaseData.getSuccessBaseData();
             baseData.setMessage("注册成功");
-            baseData.setData(registerData);
         } else {
             baseData = BaseData.getErrorBaseData();
             baseData.setMessage("注册失败");
         }
+        return JSONUtil.objectToString(baseData);
+    }
+
+    private class LoginData {
+        public String token;
+    }
+
+    @GetMapping("/login")
+    public String login(String account, String pwd) {
+        boolean res = userService.login(account, pwd);
+        BaseData baseData;
+        if (res) {
+            LoginData loginData = new LoginData();
+            loginData.token = "" + account.hashCode();
+
+            baseData = BaseData.getSuccessBaseData();
+            baseData.setMessage("登录成功");
+            baseData.setData(loginData);
+        } else {
+            baseData = BaseData.getErrorBaseData();
+            baseData.setMessage("用户名或密码错误");
+        }
+        return JSONUtil.objectToString(baseData);
+    }
+
+    @GetMapping("/changePwd")
+    public String changePwd(String account, String oldPwd, String newPwd) {
+        boolean res = userService.changePwd(account, oldPwd, newPwd);
+        BaseData baseData;
+        if (res) {
+            baseData = BaseData.getSuccessBaseData();
+            baseData.setMessage("修改成功");
+        } else {
+            baseData = BaseData.getErrorBaseData();
+            baseData.setMessage("修改失败");
+        }
+
         return JSONUtil.objectToString(baseData);
     }
 }

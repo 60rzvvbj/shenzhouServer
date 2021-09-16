@@ -14,4 +14,7 @@ public interface UserMapper {
     @Select("select * from user")
     List<User> getAllUser();
 
+    @Select("select * from user where account = #{account}")
+    User getUserByAccount(String account);
+
 }
