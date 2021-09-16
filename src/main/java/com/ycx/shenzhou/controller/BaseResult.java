@@ -1,25 +1,25 @@
-package com.ycx.shenzhou.pojo;
+package com.ycx.shenzhou.controller;
 
 // 基本返回数据
-public class BaseData {
+public class BaseResult {
     private int code;
     private Object data;
     private boolean flag;
     private String message;
 
-    public static BaseData getSuccessBaseData() {
-        return new BaseData(200, true);
+    public static BaseResult getSuccessBaseData() {
+        return new BaseResult(200, true);
     }
 
-    public static BaseData getErrorBaseData() {
-        return new BaseData(500, false);
+    public static BaseResult getErrorBaseData() {
+        return new BaseResult(500, false);
     }
 
-    public BaseData() {
+    public BaseResult() {
         this(200, true);
     }
 
-    public BaseData(int code, boolean flag) {
+    public BaseResult(int code, boolean flag) {
         this.code = code;
         this.flag = flag;
         this.message = "";

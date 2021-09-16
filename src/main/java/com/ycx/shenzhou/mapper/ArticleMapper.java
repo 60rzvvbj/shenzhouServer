@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ArticleMapper {
 
     @Select("select * from article, (select count(*) as thumb from thumb where #{id} = aid) as t where id = #{id};")
-    @Result(column = "thumb", property = "thumb")
     Article getArticleById(String id);
 
 }
