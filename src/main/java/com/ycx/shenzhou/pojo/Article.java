@@ -8,6 +8,7 @@ public class Article {
     private long releasetime; //发布时间
     private String content; //文章内容
     private String account; //作者账号
+    private int thumb; // 点赞数
 
     public String getId() {
         return id;
@@ -65,6 +66,14 @@ public class Article {
         this.account = account;
     }
 
+    public int getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(int thumb) {
+        this.thumb = thumb;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -75,6 +84,7 @@ public class Article {
                 ", releasetime=" + releasetime +
                 ", content='" + content + '\'' +
                 ", account='" + account + '\'' +
+                ", thumb=" + thumb +
                 '}';
     }
 }

@@ -26,6 +26,8 @@ create table article (
 	-- 点赞数通过其它表计算
 );
 
+insert into article values(null, '真不错', '广金', '广东', 1234567, '广金真不错', '1808078515');
+
 -- 导游
 create table guide(
 	id int primary key auto_increment, -- 导游编号
@@ -113,5 +115,17 @@ create table experience(
 -- 点赞
 create table thumb(
 	account varchar(20), -- 用户账号
-	aid int, -- 文章编号
+	aid int -- 文章编号
 );
+
+insert into thumb values('1808078515', 1);
+
+select *
+from article as a, (
+	select count(*) as thumb
+	from thumb
+	where aid = 1
+) as t
+where a.id = 1;
+
+select * from article, (select count(*) as thumb from thumb where id = aid) as t where id = 1;
