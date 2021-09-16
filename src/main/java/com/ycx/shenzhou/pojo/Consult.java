@@ -4,7 +4,7 @@ public class Consult {
     private String id; //咨询ID
     private String account; //用户账号
     private String gid; //导游编号
-    private Long consulttime; //咨询时间
+    private long consulttime; //咨询时间
     private String content; //咨询内容
     private String reply; //导游答复内容
     private int score; //用户评分

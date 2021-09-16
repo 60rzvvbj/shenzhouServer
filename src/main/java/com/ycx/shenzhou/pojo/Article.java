@@ -5,7 +5,7 @@ public class Article {
     private String title; //文章标题
     private String placename; //景点名
     private String province; //景点所在省份
-    private Long releasetime; //发布时间
+    private long releasetime; //发布时间
     private String content; //文章内容
     private String account; //作者账号
 

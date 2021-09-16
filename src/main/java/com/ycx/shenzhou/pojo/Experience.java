@@ -2,8 +2,8 @@ package com.ycx.shenzhou.pojo;
 
 public class Experience {
     private String account; //用户账号
-    private Long value; //经验值
-    private Long level; //等级
+    private long value; //经验值
+    private long level; //等级
 
     public String getAccount() {
         return account;
