@@ -36,6 +36,8 @@ create table guide(
 	-- 评分由其它表计算
 );
 
+insert into guide values(null, '1808078515', '专业');
+
 -- 导游申请
 create table guideapply(
 	id int primary key auto_increment, -- 申请ID
@@ -158,4 +160,6 @@ on id = aid
 where province = '广东'
 limit 0, 10;
 
-update article set a = a where id = id
+update article set a = a where id = id;
+
+select * from guide where id = id;
