@@ -1,6 +1,6 @@
 package com.ycx.shenzhou.pojo;
 
-public class College {
+public class Collage {
     private String id; //拼团ID
     private String account; //发起人账号
     private long pnumber; //咨询时间

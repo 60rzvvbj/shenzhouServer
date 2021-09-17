@@ -2,10 +2,7 @@ package com.ycx.shenzhou.mapper;
 
 
 import com.ycx.shenzhou.pojo.Guideapply;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 public interface GuideApplyMapper {
 
     @Insert("insert into guideapply values(null, #{applytime}, #{account}, #{introduction})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addGuideApply(Guideapply guideapply);
 
     @Delete("delete from guideapply where id = #{id}")
@@ -23,6 +21,6 @@ public interface GuideApplyMapper {
     @Select("select * from guideapply")
     List<Guideapply> getAllGuideapply();
 
-    @Select("select *from guideapply where id = #{id}")
+    @Select("select * from guideapply where id = #{id}")
     Guideapply getGuideapplyById(String id);
 }

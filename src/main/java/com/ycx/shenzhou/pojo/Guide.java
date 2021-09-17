@@ -4,6 +4,7 @@ public class Guide {
     private String id; //导游编号
     private String account; //用户账号
     private String introduction; //导游简介
+    private double score;//评分
 
     public String getId() {
         return id;
@@ -29,12 +30,21 @@ public class Guide {
         this.introduction = introduction;
     }
 
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Guide{" +
                 "id='" + id + '\'' +
                 ", account='" + account + '\'' +
                 ", introduction='" + introduction + '\'' +
+                ", score=" + score +
                 '}';
     }
 }
