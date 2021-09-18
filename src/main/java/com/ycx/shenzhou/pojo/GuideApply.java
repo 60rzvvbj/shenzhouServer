@@ -1,10 +1,10 @@
 package com.ycx.shenzhou.pojo;
 
-public class Guideapply {
-    private String id; //申请ID
-    private long applytime; //申请时间
-    private String account; //用户账号
-    private String introduction; //导游简介
+public class GuideApply {
+    private String id; // 申请ID
+    private long applytime; // 申请时间
+    private String account; // 用户账号
+    private String introduction; // 导游简介
 
     public String getId() {
         return id;

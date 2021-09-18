@@ -12,8 +12,7 @@ public interface ParticipateMapper {
     @Select("select * from participate where account = #{account}")
     Participate getParticipateById(String account);
 
-    @Insert("insert into participate values(null, #{cid})")
-    @Options(useGeneratedKeys = true, keyProperty = "account", keyColumn = "account")
+    @Insert("insert into participate values(#{account}, #{cid})")
     int addParticipate(Participate participate);
 
     @Delete("delete from participate where account = #{account}")

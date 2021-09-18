@@ -1,8 +1,8 @@
 package com.ycx.shenzhou.pojo;
 
 public class Participate {
-    private String account; //参与人账号
-    private String cid; //拼团ID
+    private String account; // 参与人账号
+    private String cid; // 拼团ID
 
     public String getAccount() {
         return account;

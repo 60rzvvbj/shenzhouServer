@@ -1,8 +1,6 @@
 package com.ycx.shenzhou.mapper;
 
 import com.ycx.shenzhou.pojo.Consult;
-import com.ycx.shenzhou.pojo.Guide;
-import com.ycx.shenzhou.pojo.Guideapply;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

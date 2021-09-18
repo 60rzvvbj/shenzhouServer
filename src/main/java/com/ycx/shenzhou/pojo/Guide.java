@@ -1,10 +1,10 @@
 package com.ycx.shenzhou.pojo;
 
 public class Guide {
-    private String id; //导游编号
-    private String account; //用户账号
-    private String introduction; //导游简介
-    private double score;//评分
+    private String id; // 导游编号
+    private String account; // 用户账号
+    private String introduction; // 导游简介
+    private double score;// 评分
 
     public String getId() {
         return id;

@@ -1,8 +1,8 @@
 package com.ycx.shenzhou.pojo;
 
 public class Admin {
-    private String id; //管理员ID
-    private String account; //用户账号
+    private String id; // 管理员ID
+    private String account; // 用户账号
 
     public String getId() {
         return id;

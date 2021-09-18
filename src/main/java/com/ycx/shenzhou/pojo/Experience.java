@@ -1,9 +1,9 @@
 package com.ycx.shenzhou.pojo;
 
 public class Experience {
-    private String account; //用户账号
-    private long value; //经验值
-    private long level; //等级
+    private String account; // 用户账号
+    private int value; // 经验值
+    private int level; // 等级
 
     public String getAccount() {
         return account;
@@ -13,19 +13,19 @@ public class Experience {
         this.account = account;
     }
 
-    public Long getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
-    public Long getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(Long level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

@@ -1,11 +1,11 @@
 package com.ycx.shenzhou.service;
 
-import com.ycx.shenzhou.pojo.Exchangegift;
+import com.ycx.shenzhou.pojo.ExchangeGift;
 
 public interface ExchangeGiftService {
 
     // 添加兑换申请
-    String addExchange(Exchangegift exchangeGift);
+    String addExchange(ExchangeGift exchangeGift);
 
     // 接受申请
     boolean acceptExchange(String id);

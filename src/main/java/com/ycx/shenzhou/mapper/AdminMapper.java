@@ -22,6 +22,6 @@ public interface AdminMapper {
     @Select("select * from admin where id = #{id}")
     Admin getAdminById(String id);
 
-    @Select("select * from admin where id = #{id}")
-    Admin getAdminByAccount(String id);
+    @Select("select * from admin where account = #{account}")
+    Admin getAdminByAccount(String account);
 }

@@ -19,8 +19,8 @@ public interface CollageMapper {
     @Delete("delete from collage where id = #{id}")
     boolean removeCollage(String id);
 
-    @Update("update gift set account = #{account}, pnumber = #{pnumber}, departure = #{departure}, destination = #{destination}, dtime = #{dtime}, describe = #{describe} where id = #{id}")
-    int modifyCollage(Collage collage);
+    @Select("select * from collage where account = #{account}")
+    List<Collage> getCollageByAccount();
 
     @Select("select * from collage")
     List<Collage> getAllCollage();

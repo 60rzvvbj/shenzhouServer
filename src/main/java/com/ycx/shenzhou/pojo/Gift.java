@@ -1,10 +1,11 @@
 package com.ycx.shenzhou.pojo;
 
 public class Gift {
-    private String id; //礼品编号
-    private String name; //礼品名称
-    private String describe; //礼品描述
-    private long price; //礼品价格
+    private String id; // 礼品编号
+    private String name; // 礼品名称
+    private String describe; // 礼品描述
+    private int price; // 礼品价格
+    private int status; // 礼品状态
 
     public String getId() {
         return id;
@@ -30,12 +31,20 @@ public class Gift {
         this.describe = describe;
     }
 
-    public Long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override
@@ -45,6 +54,7 @@ public class Gift {
                 ", name='" + name + '\'' +
                 ", describe='" + describe + '\'' +
                 ", price=" + price +
+                ", status=" + status +
                 '}';
     }
 }

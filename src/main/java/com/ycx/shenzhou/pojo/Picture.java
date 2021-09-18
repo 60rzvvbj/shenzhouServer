@@ -1,10 +1,10 @@
 package com.ycx.shenzhou.pojo;
 
 public class Picture {
-    private String id; //图片ID
-    private String url; //存放路径
-    private String positiontype; //所属位置类型 含义未定
-    private String specificposition; //所属具体位置 含义未定
+    private String id; // 图片ID
+    private String url; // 存放路径
+    private int positiontype; // 所属位置类型 含义未定
+    private int specificposition; // 所属具体位置 含义未定
 
     public String getId() {
         return id;
@@ -22,19 +22,19 @@ public class Picture {
         this.url = url;
     }
 
-    public String getPositiontype() {
+    public int getPositiontype() {
         return positiontype;
     }
 
-    public void setPositiontype(String positiontype) {
+    public void setPositiontype(int positiontype) {
         this.positiontype = positiontype;
     }
 
-    public String getSpecificposition() {
+    public int getSpecificposition() {
         return specificposition;
     }
 
-    public void setSpecificposition(String specificposition) {
+    public void setSpecificposition(int specificposition) {
         this.specificposition = specificposition;
     }
 

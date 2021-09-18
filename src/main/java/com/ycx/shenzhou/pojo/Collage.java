@@ -1,10 +1,10 @@
 package com.ycx.shenzhou.pojo;
 
 public class Collage {
-    private String id; //拼团ID
-    private String account; //发起人账号
-    private long pnumber; //总人数
-    private String departure; //起点
+    private String id; // 拼团ID
+    private String account; // 发起人账号
+    private int pnumber; // 总人数
+    private String departure; // 起点
     private String destination; //终点
     private long dtime; //出发时间
     private String describe; //具体信息
@@ -25,11 +25,11 @@ public class Collage {
         this.account = account;
     }
 
-    public Long getPnumber() {
+    public int getPnumber() {
         return pnumber;
     }
 
-    public void setPnumber(Long pnumber) {
+    public void setPnumber(int pnumber) {
         this.pnumber = pnumber;
     }
 
@@ -49,11 +49,11 @@ public class Collage {
         this.destination = destination;
     }
 
-    public Long getDtime() {
+    public long getDtime() {
         return dtime;
     }
 
-    public void setDtime(Long dtime) {
+    public void setDtime(long dtime) {
         this.dtime = dtime;
     }
 

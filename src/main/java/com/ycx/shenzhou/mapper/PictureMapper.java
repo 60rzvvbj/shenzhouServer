@@ -19,9 +19,4 @@ public interface PictureMapper {
     @Delete("delete from picture where id = #{id}")
     boolean removePicture(String id);
 
-    @Update("update picture set url= #{url}, positiontype = #{positiontype}, specificposition = #{specificposition} where id = #{id}")
-    int modifyPicture(Picture picture);
-
-    @Select("select * from picture")
-    List<Picture> getAllPicture();
 }
