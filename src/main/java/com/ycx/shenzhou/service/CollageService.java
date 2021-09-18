@@ -15,4 +15,7 @@ public interface CollageService {
     // 完成拼团
     boolean completeCollage(String id);
 
+    // 加入拼团
+    boolean joinCollage(String account, String id);
+
 }

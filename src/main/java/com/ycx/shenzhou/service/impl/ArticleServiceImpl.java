@@ -47,4 +47,14 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean removeArticle(String id) {
         return articleMapper.removeArticle(id) > 0;
     }
+
+    @Override
+    public boolean addThumb(String account, String id) {
+        return false;
+    }
+
+    @Override
+    public boolean cancelThumb(String account, String id) {
+        return false;
+    }
 }

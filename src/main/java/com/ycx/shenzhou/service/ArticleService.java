@@ -22,4 +22,10 @@ public interface ArticleService {
 
     // 删除文章
     boolean removeArticle(String id);
+
+    // 给文章点赞
+    boolean addThumb(String account, String id);
+
+    // 取消点赞
+    boolean cancelThumb(String account, String id);
 }
