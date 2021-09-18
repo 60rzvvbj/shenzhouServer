@@ -68,7 +68,7 @@ create table consult(
 create table collage(
 	id int primary key auto_increment, -- 拼团ID
 	account varchar(20), -- 发起人账号
-	pnumber int, -- 咨询时间
+	pnumber int, -- 总人数
 	departure varchar(30), -- 起点
 	destination varchar(30), -- 终点
 	dtime bigint, -- 出发时间

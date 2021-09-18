@@ -3,7 +3,7 @@ package com.ycx.shenzhou.pojo;
 public class Collage {
     private String id; //拼团ID
     private String account; //发起人账号
-    private long pnumber; //咨询时间
+    private long pnumber; //总人数
     private String departure; //起点
     private String destination; //终点
     private long dtime; //出发时间
