@@ -5,6 +5,7 @@ import com.ycx.shenzhou.pojo.Article;
 import java.util.List;
 
 public interface ArticleService {
+    // 通过文章id查询
     Article getArticle(String id);
 
     // 通过页数查询

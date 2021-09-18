@@ -16,11 +16,6 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> getAllUser() {
-        return userMapper.getAllUser();
-    }
-
-    @Override
     public boolean register(String account, String pwd, String username) {
         return !account.equals("1808078515");
     }
@@ -45,5 +40,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean testToken(String account, String token) {
         return ("" + account.hashCode()).equals(token);
+    }
+
+    @Override
+    public boolean modifyBalance(String account, int money) {
+        return false;
     }
 }
