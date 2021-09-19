@@ -56,7 +56,7 @@ public class GuideServiceImpl implements GuideService {
         }
 
         // 如果总数小于GUIDE_NUMBER则全部返回
-        else if(n <= GUIDE_NUMBER) {
+        else {
            for(int i = 0; i < GUIDE_NUMBER; i++){
                res.add(guides.get(i));
            }
