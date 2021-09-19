@@ -3,6 +3,7 @@ package com.ycx.shenzhou.service.impl;
 import com.ycx.shenzhou.mapper.GuideMapper;
 import com.ycx.shenzhou.pojo.Guide;
 import com.ycx.shenzhou.service.GuideService;
+import com.ycx.shenzhou.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +45,22 @@ public class GuideServiceImpl implements GuideService {
         List<Guide> guides = guideMapper.getAllGuide();
         List<Guide> res = new LinkedList<>();
 
-        // 蔡导
         // 如果总数大于GUIDE_NUMBER则在其中随机抽取12个，不可以重复
-        // 如果总数小于GUIDE_NUMBER则全部返回
+        int n = guides.size();
+        int len = 12;
+        int[] randomNum = RandomUtil.getRandomNum(n, len);
+        if(n > GUIDE_NUMBER) {
+            for(int i = 0; i < 12; i++){
+                res.add(guides.get(randomNum[i]));
+            }
+        }
 
+        // 如果总数小于GUIDE_NUMBER则全部返回
+        else if(n <= GUIDE_NUMBER) {
+           for(int i = 0; i < GUIDE_NUMBER; i++){
+               res.add(guides.get(i));
+           }
+        }
         return res;
     }
 }
