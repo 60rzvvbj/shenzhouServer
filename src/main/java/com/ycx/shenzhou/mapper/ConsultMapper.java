@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ConsultMapper {
     @Insert("insert into consult values(null, #{account}, #{gid}, #{consulttime}, #{content}" +
-            ", null, null, null)")
+            ", null, null, #{stage})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addConsult(Consult consult);
 
@@ -30,7 +30,7 @@ public interface ConsultMapper {
     int modifyConsultScore(Consult consult);
 
     @Select("select * from consult where gid = #{gid}")
-    List<Consult> getConsultByGid(String id);
+    List<Consult> getConsultByGid(String gid);
 
     @Select("select * from consult where account = #{account}")
     List<Consult> getConsultByAccount(String account);

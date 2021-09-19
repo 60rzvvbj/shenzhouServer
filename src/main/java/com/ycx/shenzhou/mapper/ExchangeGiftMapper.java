@@ -12,7 +12,7 @@ public interface ExchangeGiftMapper {
     @Select("select * from exchangegift where id = #{id}")
     ExchangeGift getExchangeGiftById(String id);
 
-    @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{etime}, #{address}, null")
+    @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{etime}, #{address}, #{state}")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addExchangeGift(ExchangeGift exchangegift);
 
