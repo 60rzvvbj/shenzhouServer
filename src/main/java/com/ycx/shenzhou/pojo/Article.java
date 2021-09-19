@@ -1,13 +1,13 @@
 package com.ycx.shenzhou.pojo;
 
 public class Article {
-    private String id; //文章编号
-    private String title; //文章标题
-    private String placename; //景点名
-    private String province; //景点所在省份
-    private long releasetime; //发布时间
-    private String content; //文章内容
-    private String account; //作者账号
+    private String id; // 文章编号
+    private String title; // 文章标题
+    private String placename; // 景点名
+    private String province; // 景点所在省份
+    private long releasetime; // 发布时间
+    private String content; // 文章内容
+    private String account; // 作者账号
     private int thumb; // 点赞数
 
     public String getId() {

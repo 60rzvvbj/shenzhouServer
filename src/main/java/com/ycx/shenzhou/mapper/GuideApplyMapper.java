@@ -19,8 +19,8 @@ public interface GuideApplyMapper {
     boolean removeGuideApply(String id);
 
     @Select("select * from guideapply")
-    List<GuideApply> getAllGuideapply();
+    List<GuideApply> getAllGuideApply();
 
     @Select("select * from guideapply where id = #{id}")
-    GuideApply getGuideapplyById(String id);
+    GuideApply getGuideApplyById(String id);
 }

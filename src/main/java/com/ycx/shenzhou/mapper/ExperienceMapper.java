@@ -12,8 +12,7 @@ public interface ExperienceMapper {
     @Select("select * from experience where account = #{account}")
     Experience getExperienceByAccount(String account);
 
-    @Insert("insert into experience values(null, #{value}, #{level}")
-    @Options(useGeneratedKeys = true, keyProperty = "account", keyColumn = "account")
+    @Insert("insert into experience values(#{account}, #{value}, #{level}")
     int addExperience(Experience Experience);
 
     @Delete("delete from experience where account = #{account}")
