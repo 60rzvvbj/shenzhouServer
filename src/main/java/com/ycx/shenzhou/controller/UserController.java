@@ -1,5 +1,9 @@
 package com.ycx.shenzhou.controller;
 
+import com.ycx.shenzhou.pojo.Experience;
+import com.ycx.shenzhou.pojo.User;
+import com.ycx.shenzhou.service.ExperienceService;
+import com.ycx.shenzhou.service.PictureService;
 import com.ycx.shenzhou.service.UserService;
 import com.ycx.shenzhou.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +18,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ExperienceService experienceService;
+
+    @Autowired
+    private PictureService pictureService;
+
     @GetMapping("/register")
-    public String register(HttpServletRequest request, String account, String pwd, String username) {
-        boolean res = userService.register(account, pwd, username);
+    public String register(String account, String password, String username) {
+        boolean res = userService.register(account, password, username);
         BaseResult baseData;
         if (res) {
+
+            experienceService.initUserExperience(account); //初始化用户经验等级
+
             baseData = BaseResult.getSuccessBaseData();
             baseData.setMessage("注册成功");
         } else {
@@ -28,13 +41,14 @@ public class UserController {
         return JSONUtil.objectToString(baseData);
     }
 
+    // 登录返回数据
     private static class LoginData {
-        public String token;
+        String token;
     }
 
     @GetMapping("/login")
-    public String login(String account, String pwd) {
-        boolean res = userService.login(account, pwd);
+    public String login(String account, String password) {
+        boolean res = userService.login(account, password);
         BaseResult baseData;
         if (res) {
             LoginData loginData = new LoginData();
@@ -51,8 +65,9 @@ public class UserController {
     }
 
     @GetMapping("/changePwd")
-    public String changePwd(String account, String oldPwd, String newPwd) {
-        boolean res = userService.changePwd(account, oldPwd, newPwd);
+    public String changePwd(HttpServletRequest request, String oldPassword, String newPassword) {
+        String account = (String) request.getAttribute("account");
+        boolean res = userService.changePwd(account, oldPassword, newPassword);
         BaseResult baseData;
         if (res) {
             baseData = BaseResult.getSuccessBaseData();
@@ -63,4 +78,63 @@ public class UserController {
         }
         return JSONUtil.objectToString(baseData);
     }
+
+    private static class GetOwnInfoData {
+        String username;
+        String other;
+        int balance;
+        int experience;
+        int level;
+        String headPortraitUrl;
+    }
+
+
+    @GetMapping("/getOwnInfo")
+    public String getOwnInfo(HttpServletRequest request) {
+        String account = (String) request.getAttribute("account");
+        User user = userService.getUserInfo(account);
+        BaseResult baseResult;
+        if (user != null) {
+            GetOwnInfoData data = new GetOwnInfoData();
+
+            // 用户基本信息
+            data.username = user.getUsername();
+            data.other = user.getOther();
+            data.balance = user.getBalance();
+
+            // 用户经验等级
+            Experience experience = experienceService.getExperienceByAccount(account);
+            data.experience = experience.getValue();
+            data.level = experience.getLevel();
+
+            // 用户头像路径
+            String headPortraitUrl = pictureService.getUserHeadPortraitUrl(account);
+            data.headPortraitUrl = headPortraitUrl != null ? headPortraitUrl : pictureService.getDefaultPictureUrl(1);
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+        return JSONUtil.objectToString(baseResult);
+    }
+
+    @GetMapping("/modifyUserInfo")
+    String modifyUserInfo(HttpServletRequest request, User user) {
+        String account = (String) request.getAttribute("account");
+        user.setAccount(account);
+        boolean res = userService.modifyUserInfo(user);
+        BaseResult baseResult;
+        if (res) {
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("修改成功");
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("修改失败");
+        }
+        return JSONUtil.objectToString(baseResult);
+    }
+
 }

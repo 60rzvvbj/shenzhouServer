@@ -4,6 +4,7 @@ import com.ycx.shenzhou.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,5 +18,14 @@ public interface UserMapper {
 
     @Select("select * from user where account = #{account}")
     User getUserByAccount(String account);
+
+    @Update("update user set pwd = #{pwd} where account = #{account}")
+    int changePwd(String account, String pwd);
+
+    @Update("update user set balance = #{balance} where account = #{account}")
+    int modifyBalance(User user);
+
+    @Update("update user set username = #{username}, other = #{other} where account = #{account}")
+    int modifyUserInfo(User user);
 
 }

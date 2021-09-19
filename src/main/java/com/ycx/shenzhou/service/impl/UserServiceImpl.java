@@ -23,13 +23,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean login(String account, String pwd) {
         User user = userMapper.getUserByAccount(account);
-        System.out.println(JSONUtil.objectToString(user));
-        return false;
+        return user != null && user.getPwd().equals(pwd);
     }
 
     @Override
     public boolean changePwd(String account, String oldPwd, String newPwd) {
-        return false;
+        return login(account, oldPwd) && userMapper.changePwd(account, newPwd) > 0;
     }
 
     @Override
@@ -44,6 +43,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean modifyBalance(String account, int money) {
-        return false;
+        User user = userMapper.getUserByAccount(account);
+        if (user == null){
+            return false;
+        }
+        user.setBalance(user.getBalance() + money);
+        return userMapper.modifyBalance(user) > 0;
+    }
+
+    @Override
+    public User getUserInfo(String account) {
+        return userMapper.getUserByAccount(account);
+    }
+
+    @Override
+    public boolean modifyUserInfo(User user) {
+        return userMapper.modifyUserInfo(user) > 0;
     }
 }

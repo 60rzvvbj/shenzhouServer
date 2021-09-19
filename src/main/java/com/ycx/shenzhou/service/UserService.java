@@ -23,4 +23,10 @@ public interface UserService {
 
     // 修改余额
     boolean modifyBalance(String account, int money);
+
+    // 获取用户信息
+    User getUserInfo(String account);
+
+    // 修改用户信息
+    boolean modifyUserInfo(User user);
 }
