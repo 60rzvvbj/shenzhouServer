@@ -28,7 +28,7 @@ public class UserController {
         return JSONUtil.objectToString(baseData);
     }
 
-    private class LoginData {
+    private static class LoginData {
         public String token;
     }
 
