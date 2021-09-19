@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ThumbMapper {
 
-    @Insert("insert into picture values(#{account}, #{aid}")
+    @Insert("insert into picture values(#{account}, #{aid})")
     int addThumb(String account, String aid);
 
     @Delete("delete from picture where account = #{account}, aid = #{aid}")

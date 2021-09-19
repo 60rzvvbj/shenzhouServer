@@ -10,18 +10,21 @@ import java.util.List;
 @Mapper
 public interface ExchangeGiftMapper {
     @Select("select * from exchangegift where id = #{id}")
-    ExchangeGift getExchangegiftById(String id);
+    ExchangeGift getExchangeGiftById(String id);
 
-    @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{etime}, #{address}")
+    @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{etime}, #{address}, null")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    int addExchangegift(ExchangeGift exchangegift);
+    int addExchangeGift(ExchangeGift exchangegift);
 
     @Delete("delete from exchangegift where id = #{id}")
-    boolean removeExchangegift(String id);
+    boolean removeExchangeGift(String id);
 
     @Update("update gift set address= #{address}, state = #{state} where id = #{id}")
-    int modifyExchangegift(ExchangeGift exchangegift);
+    int modifyExchangeGift(ExchangeGift exchangegift);
 
     @Select("select * from Exchangegift")
-    List<ExchangeGift> getAllExchangegift();
+    List<ExchangeGift> getAllExchangeGift();
+
+    @Select("select * from Exchangegift where account = #{account}")
+    List<ExchangeGift> getExchangeGiftByAccount(String account);
 }

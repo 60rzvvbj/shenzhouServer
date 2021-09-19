@@ -13,16 +13,19 @@ public interface GiftMapper {
     @Select("select * from gift where id = #{id}")
     Gift getGiftById(String id);
 
-    @Insert("insert into gift values(null, #{name}, #{describe}, #{price})")
+    @Insert("insert into gift values(null, #{name}, #{describe}, #{price}, #{status})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addGift(Gift gift);
 
     @Delete("delete from gift where id = #{id}")
     boolean removeGift(String id);
 
-    @Update("update gift set name = #{name}, describe = #{describe}, price = #{price} where id = #{id}")
+    @Update("update gift set name = #{name}, describe = #{describe}, price = #{price}, status = #{status} where id = #{id}")
     int modifyGuide(Guide guide);
 
     @Select("select * from gift")
     List<Gift> getAllGift();
+
+    @Select("select * from gift where status = 0")
+    List<Gift> getAllNotExchange();
 }

@@ -20,7 +20,7 @@ public interface CollageMapper {
     boolean removeCollage(String id);
 
     @Select("select * from collage where account = #{account}")
-    List<Collage> getCollageByAccount();
+    List<Collage> getCollageByAccount(String account);
 
     @Select("select * from collage")
     List<Collage> getAllCollage();
