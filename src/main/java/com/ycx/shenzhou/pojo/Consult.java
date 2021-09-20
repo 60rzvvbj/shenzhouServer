@@ -8,7 +8,7 @@ public class Consult {
     private String content; // 咨询内容
     private String reply; // 导游答复内容
     private int score; // 用户评分
-    private int  stage;// 咨询阶段 0: 用户发起咨询, 1: 导游回复咨询
+    private int stage; // 咨询阶段 0: 用户发起咨询, 1: 导游回复咨询, 2: 用户评分结束, 3: 结束咨询
 
     public String getId() {
         return id;

@@ -6,7 +6,7 @@ public class ExchangeGift {
     private String gid; // 礼品编号
     private long etime; // 申请时间
     private String address; // 邮寄地址
-    private int state; // 申请状态 0: 未成功, 1: 邮寄中, 2: 已收货
+    private int status; // 申请状态 -1: 申请失败, 0: 审核中, 1: 邮寄中, 2: 已收货
 
     public String getId() {
         return id;
@@ -32,11 +32,11 @@ public class ExchangeGift {
         this.gid = gid;
     }
 
-    public Long getEtime() {
+    public long getEtime() {
         return etime;
     }
 
-    public void setEtime(Long etime) {
+    public void setEtime(long etime) {
         this.etime = etime;
     }
 
@@ -48,23 +48,23 @@ public class ExchangeGift {
         this.address = address;
     }
 
-    public int getState() {
-        return state;
+    public int getStatus() {
+        return status;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Exchangegift{" +
+        return "ExchangeGift{" +
                 "id='" + id + '\'' +
                 ", account='" + account + '\'' +
                 ", gid='" + gid + '\'' +
                 ", etime=" + etime +
                 ", address='" + address + '\'' +
-                ", state=" + state +
+                ", status=" + status +
                 '}';
     }
 }

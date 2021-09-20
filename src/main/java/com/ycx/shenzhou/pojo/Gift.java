@@ -5,7 +5,7 @@ public class Gift {
     private String name; // 礼品名称
     private String describe; // 礼品描述
     private int price; // 礼品价格
-    private int status; // 礼品状态
+    private int status; // 礼品状态 0: 未兑换, 1: 已兑换
 
     public String getId() {
         return id;

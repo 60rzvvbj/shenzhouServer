@@ -13,7 +13,7 @@ public interface ExperienceMapper {
     Experience getExperienceByAccount(String account);
 
     @Insert("insert into experience values(#{account}, #{value}, #{level}")
-    int addExperience(Experience Experience);
+    int addExperience(Experience experience);
 
     @Delete("delete from experience where account = #{account}")
     boolean removeExperience(String account);

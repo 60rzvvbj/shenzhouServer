@@ -1,6 +1,7 @@
 package com.ycx.shenzhou.service.impl;
 
 import com.ycx.shenzhou.mapper.ArticleMapper;
+import com.ycx.shenzhou.mapper.ThumbMapper;
 import com.ycx.shenzhou.pojo.Article;
 import com.ycx.shenzhou.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+    private ThumbMapper thumbMapper;
 
     // 每页的数量
     private final int NUMBER = 10;
@@ -61,12 +63,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public boolean addThumb(String account, String id) {
-        return false;
+    public boolean addThumb(String account, String id) { // 给文章点赞
+        return thumbMapper.addThumb(account, id) > 0; // 在数据库中添加点赞记录
     }
 
     @Override
-    public boolean cancelThumb(String account, String id) {
-        return false;
+    public boolean cancelThumb(String account, String id) { // 取消点赞
+        return thumbMapper.removeThumb(account, id); // 在数据库中删除点赞记录
     }
 }

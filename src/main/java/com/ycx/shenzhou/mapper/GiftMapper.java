@@ -21,10 +21,10 @@ public interface GiftMapper {
     boolean removeGift(String id);
 
     @Update("update gift set name = #{name}, describe = #{describe}, price = #{price} where id = #{id}")
-    int modifyGuide(Guide guide);
+    int modifyGift(Gift gift);
 
     @Update("update gift set status = #{status} where id = #{id}")
-    int modifyGuideStatus(Guide guide);
+    int modifyGiftStatus(Gift gift);
 
     @Select("select * from gift")
     List<Gift> getAllGift();
