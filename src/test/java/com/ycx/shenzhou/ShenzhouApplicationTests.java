@@ -22,15 +22,6 @@ class ShenzhouApplicationTests {
 
     @Test
     void contextLoads() {
-        Article article = new Article();
-        article.setAccount("1808078515");
-        article.setTitle("真可以");
-        article.setPlacename("广州塔");
-        article.setProvince("广东");
-        article.setReleasetime(new Date().getTime());
-        article.setContent("广州塔真可以");
-
-        System.out.println(articleService.addArticle(article));
     }
 
 }

@@ -1,14 +1,19 @@
 package com.ycx.shenzhou.controller;
 
 import com.ycx.shenzhou.pojo.Article;
+import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.ArticleService;
+import com.ycx.shenzhou.service.UserService;
 import com.ycx.shenzhou.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 public class ArticleController {
@@ -16,20 +21,23 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    private static class ReleaseArticleData{
+    @Autowired
+    private UserService userService;
+
+    private static class ReleaseArticleData {
         public String id;
         public long releaseTime;
     }
 
     @PostMapping("/releaseArticle")
-    public String releaseArticle(HttpServletRequest request, Article article, String pictureId){
+    public String releaseArticle(HttpServletRequest request, Article article, String pictureId) {
         String account = (String) request.getAttribute("account");
         article.setAccount(account);
 
         System.out.println(JSONUtil.objectToString(article));
 
         long time = new Date().getTime();
-        article.setReleasetime(new Date().getTime());
+        article.setReleaseTime(new Date().getTime());
 
         String id = articleService.addArticle(article);
 
@@ -65,4 +73,76 @@ public class ArticleController {
         }
         return JSONUtil.objectToString(baseResult);
     }
+
+    @GetMapping("/thumbArticle")
+    public String thumbArticle(HttpServletRequest request, String articleId, int type) {
+        String account = (String) request.getAttribute("account");
+        boolean res;
+        if (type == 1) {
+            res = articleService.addThumb(account, articleId);
+        } else {
+            res = articleService.cancelThumb(account, articleId);
+        }
+        BaseResult baseResult;
+        if (res) {
+            baseResult = BaseResult.getSuccessBaseData();
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+        }
+        return JSONUtil.objectToString(baseResult);
+    }
+
+
+    private static class GetArticlesData {
+        public static class ArticleData {
+            public String id;
+            public String title;
+            public String placeName;
+            public String province;
+            public long releaseTime;
+            public String content;
+            public String authorUsername;
+            public int thumb;
+        }
+
+        public List<ArticleData> articles;
+        public int pageCount;
+    }
+
+    @GetMapping("/public/getArticles")
+    public String getArticles(int page, String province) {
+        BaseResult baseResult;
+        baseResult = BaseResult.getSuccessBaseData();
+        List<Article> articles;
+        if (province != null) {
+            articles = articleService.getArticleByProvince(province, page);
+        } else {
+            articles = articleService.getArticleByPage(page);
+        }
+        GetArticlesData getArticlesData = new GetArticlesData();
+        getArticlesData.articles = new LinkedList<GetArticlesData.ArticleData>();
+
+        if (articles != null) {
+            for (Article article : articles) {
+                GetArticlesData.ArticleData articleData = new GetArticlesData.ArticleData();
+
+                articleData.id = article.getId();
+                articleData.title = article.getTitle();
+                articleData.placeName = article.getPlaceName();
+                articleData.province = article.getProvince();
+                articleData.releaseTime = article.getReleaseTime();
+                articleData.content = article.getContent();
+                articleData.thumb = article.getThumb();
+                articleData.authorUsername = userService.getUserInfo(article.getAccount()).getUsername();
+
+                getArticlesData.articles.add(articleData);
+            }
+        }
+
+        getArticlesData.pageCount = articleService.getPageCount(province);
+
+        baseResult.setData(getArticlesData);
+        return JSONUtil.objectToString(baseResult);
+    }
+
 }

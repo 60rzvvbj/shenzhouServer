@@ -33,6 +33,18 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public int getPageCount(String province) {
+        int res;
+        if (province != null) {
+            res = articleMapper.getPageCountByProvince(province);
+        } else {
+            res = articleMapper.getPageCount();
+        }
+        res = (int)Math.ceil((0.0 + res) / NUMBER);
+        return res;
+    }
+
+    @Override
     public String addArticle(Article article) {
         articleMapper.addArticle(article);
         return article.getId();

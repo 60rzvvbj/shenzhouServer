@@ -53,4 +53,10 @@ public interface ArticleMapper {
 
     @Delete("delete from article where id = #{id}")
     int removeArticle(String id);
+
+    @Select("select count(*) from article")
+    int getPageCount();
+
+    @Select("select count(*) from article where province = #{province}")
+    int getPageCountByProvince(String province);
 }
