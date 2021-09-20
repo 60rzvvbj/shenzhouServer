@@ -34,12 +34,12 @@ public class Consult {
         this.gid = gid;
     }
 
-    public long getConsulttime() {
-        return consulttime;
+    public long getConsultTime() {
+        return consultTime;
     }
 
-    public void setConsulttime(long consulttime) {
-        this.consulttime = consulttime;
+    public void setConsultTime(long consultTime) {
+        this.consultTime = consultTime;
     }
 
     public String getContent() {
@@ -80,7 +80,7 @@ public class Consult {
                 "id='" + id + '\'' +
                 ", account='" + account + '\'' +
                 ", gid='" + gid + '\'' +
-                ", consulttime=" + consulttime +
+                ", consultTime=" + consultTime +
                 ", content='" + content + '\'' +
                 ", reply='" + reply + '\'' +
                 ", score=" + score +

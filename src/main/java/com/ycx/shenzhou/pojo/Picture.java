@@ -22,20 +22,20 @@ public class Picture {
         this.url = url;
     }
 
-    public int getPositiontype() {
-        return positiontype;
+    public int getPositionType() {
+        return positionType;
     }
 
-    public void setPositiontype(int positiontype) {
-        this.positiontype = positiontype;
+    public void setPositionType(int positionType) {
+        this.positionType = positionType;
     }
 
-    public int getSpecificposition() {
-        return specificposition;
+    public int getSpecificPosition() {
+        return specificPosition;
     }
 
-    public void setSpecificposition(int specificposition) {
-        this.specificposition = specificposition;
+    public void setSpecificPosition(int specificPosition) {
+        this.specificPosition = specificPosition;
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Picture {
         return "Picture{" +
                 "id='" + id + '\'' +
                 ", url='" + url + '\'' +
-                ", positiontype='" + positiontype + '\'' +
-                ", specificposition='" + specificposition + '\'' +
+                ", positionType=" + positionType +
+                ", specificPosition=" + specificPosition +
                 '}';
     }
 }
