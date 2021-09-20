@@ -3,9 +3,9 @@ package com.ycx.shenzhou.pojo;
 public class Article {
     private String id; // 文章编号
     private String title; // 文章标题
-    private String placename; // 景点名
+    private String placeName; // 景点名
     private String province; // 景点所在省份
-    private long releasetime; // 发布时间
+    private long releaseTime; // 发布时间
     private String content; // 文章内容
     private String account; // 作者账号
     private int thumb; // 点赞数
@@ -26,12 +26,12 @@ public class Article {
         this.title = title;
     }
 
-    public String getPlacename() {
-        return placename;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public void setPlacename(String placename) {
-        this.placename = placename;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
     public String getProvince() {
@@ -42,12 +42,12 @@ public class Article {
         this.province = province;
     }
 
-    public long getReleasetime() {
-        return releasetime;
+    public long getReleaseTime() {
+        return releaseTime;
     }
 
-    public void setReleasetime(long releasetime) {
-        this.releasetime = releasetime;
+    public void setReleaseTime(long releaseTime) {
+        this.releaseTime = releaseTime;
     }
 
     public String getContent() {
@@ -79,9 +79,9 @@ public class Article {
         return "Article{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", placename='" + placename + '\'' +
+                ", placeName='" + placeName + '\'' +
                 ", province='" + province + '\'' +
-                ", releasetime=" + releasetime +
+                ", releaseTime=" + releaseTime +
                 ", content='" + content + '\'' +
                 ", account='" + account + '\'' +
                 ", thumb=" + thumb +

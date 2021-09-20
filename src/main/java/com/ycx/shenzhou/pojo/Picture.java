@@ -3,8 +3,8 @@ package com.ycx.shenzhou.pojo;
 public class Picture {
     private String id; // 图片ID
     private String url; // 存放路径
-    private int positiontype; // 所属位置类型 含义未定
-    private int specificposition; // 所属具体位置 含义未定
+    private int positionType; // 所属位置类型 含义未定
+    private int specificPosition; // 所属具体位置 含义未定
 
     public String getId() {
         return id;
@@ -22,20 +22,20 @@ public class Picture {
         this.url = url;
     }
 
-    public int getPositiontype() {
-        return positiontype;
+    public int getPositionType() {
+        return positionType;
     }
 
-    public void setPositiontype(int positiontype) {
-        this.positiontype = positiontype;
+    public void setPositionType(int positionType) {
+        this.positionType = positionType;
     }
 
-    public int getSpecificposition() {
-        return specificposition;
+    public int getSpecificPosition() {
+        return specificPosition;
     }
 
-    public void setSpecificposition(int specificposition) {
-        this.specificposition = specificposition;
+    public void setSpecificPosition(int specificPosition) {
+        this.specificPosition = specificPosition;
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Picture {
         return "Picture{" +
                 "id='" + id + '\'' +
                 ", url='" + url + '\'' +
-                ", positiontype='" + positiontype + '\'' +
-                ", specificposition='" + specificposition + '\'' +
+                ", positionType=" + positionType +
+                ", specificPosition=" + specificPosition +
                 '}';
     }
 }

@@ -4,11 +4,11 @@ public class Consult {
     private String id; // 咨询ID
     private String account; // 用户账号
     private String gid; // 导游编号
-    private long consulttime; // 咨询时间
+    private long consultTime; // 咨询时间
     private String content; // 咨询内容
     private String reply; // 导游答复内容
     private int score; // 用户评分
-    private int stage; // 咨询阶段 0: 用户发起咨询, 1: 导游回复咨询
+    private int  stage;// 咨询阶段 0: 用户发起咨询, 1: 导游回复咨询
 
     public String getId() {
         return id;
@@ -34,12 +34,12 @@ public class Consult {
         this.gid = gid;
     }
 
-    public long getConsulttime() {
-        return consulttime;
+    public long getConsultTime() {
+        return consultTime;
     }
 
-    public void setConsulttime(long consulttime) {
-        this.consulttime = consulttime;
+    public void setConsultTime(long consultTime) {
+        this.consultTime = consultTime;
     }
 
     public String getContent() {
@@ -80,7 +80,7 @@ public class Consult {
                 "id='" + id + '\'' +
                 ", account='" + account + '\'' +
                 ", gid='" + gid + '\'' +
-                ", consulttime=" + consulttime +
+                ", consultTime=" + consultTime +
                 ", content='" + content + '\'' +
                 ", reply='" + reply + '\'' +
                 ", score=" + score +
