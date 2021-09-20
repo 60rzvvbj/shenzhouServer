@@ -71,4 +71,9 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean cancelThumb(String account, String id) { // 取消点赞
         return thumbMapper.removeThumb(account, id); // 在数据库中删除点赞记录
     }
+
+    @Override
+    public boolean isThumb(String account, String id) {
+        return thumbMapper.isThumb(account, id) > 0;
+    }
 }

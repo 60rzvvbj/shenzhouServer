@@ -145,4 +145,44 @@ public class ArticleController {
         return JSONUtil.objectToString(baseResult);
     }
 
+    private static class GetArticleData {
+        public String title;
+        public String placeName;
+        public String province;
+        public long releaseTime;
+        public String content;
+        public String authorAccount;
+        public String authorUsername;
+        public int thumb;
+        public boolean isThumb;
+    }
+
+    @GetMapping("/getArticle")
+    public String getArticle(HttpServletRequest request, String id) {
+        String account = (String) request.getAttribute("account");
+        Article article = articleService.getArticle(id);
+        BaseResult baseResult;
+
+        if (article != null) {
+            GetArticleData articleData = new GetArticleData();
+            articleData.title = article.getTitle();
+            articleData.placeName = article.getPlaceName();
+            articleData.province = article.getProvince();
+            articleData.releaseTime = article.getReleaseTime();
+            articleData.content = article.getContent();
+            articleData.authorAccount = article.getAccount();
+            articleData.authorUsername = userService.getUserInfo(article.getAccount()).getUsername();
+            articleData.thumb = article.getThumb();
+            articleData.isThumb = articleService.isThumb(account, id);
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setData(articleData);
+            baseResult.setMessage("获取成功");
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
 }

@@ -31,4 +31,7 @@ public interface ArticleService {
 
     // 取消点赞
     boolean cancelThumb(String account, String id);
+
+    // 是否点了赞
+    boolean isThumb(String account, String id);
 }
