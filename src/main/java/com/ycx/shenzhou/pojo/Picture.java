@@ -3,8 +3,8 @@ package com.ycx.shenzhou.pojo;
 public class Picture {
     private String id; // 图片ID
     private String url; // 存放路径
-    private int positiontype; // 所属位置类型 含义未定
-    private int specificposition; // 所属具体位置 含义未定
+    private int positionType; // 所属位置类型 含义未定
+    private int specificPosition; // 所属具体位置 含义未定
 
     public String getId() {
         return id;
