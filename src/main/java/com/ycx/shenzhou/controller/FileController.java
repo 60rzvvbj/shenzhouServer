@@ -1,6 +1,7 @@
 package com.ycx.shenzhou.controller;
 
 
+import com.ycx.shenzhou.pojo.Picture;
 import com.ycx.shenzhou.service.PictureService;
 import com.ycx.shenzhou.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,33 @@ public class FileController {
     @Autowired
     private PictureService pictureService;
 
+    private static class UploadFileData {
+        public String id;
+        public String url;
+    }
+
     @PostMapping("/uploadFile")
     public String uploadFile(HttpServletRequest request) throws IOException {
         MultipartFile img = ((MultipartHttpServletRequest) request).getFile("file");
 
-        BaseResult baseResult = BaseResult.getSuccessBaseData();
+        Picture picture = new Picture();
+        String fileName = pictureService.getRandomFileName();
+        String url = pictureService.uploadFile(img, fileName, picture);
+
+        BaseResult baseResult;
+        if (url != null) {
+            UploadFileData data = new UploadFileData();
+            data.id = picture.getId();
+            data.url = url;
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("上传成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("上传失败");
+        }
+
         return JSONUtil.objectToString(baseResult);
     }
 

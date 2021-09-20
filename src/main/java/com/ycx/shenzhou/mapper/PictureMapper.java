@@ -12,7 +12,7 @@ public interface PictureMapper {
     @Select("select * from picture where id = #{id}")
     Picture getPictureById(String id);
 
-    @Insert("insert into picture values(null, #{url}, #{positiontype}, #{specificposition}")
+    @Insert("insert into picture values(null, #{url}, #{positionType}, #{specificPosition}")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addPicture(Picture picture);
 
@@ -27,4 +27,7 @@ public interface PictureMapper {
 
     @Select("select url from picture where positiontype = 3 and specificposition = #{gid}")
     String getGiftPicture(String gid);
+
+    @Select("select count(*) from picture where url = #{url}")
+    int urlIsExist(String url);
 }

@@ -51,6 +51,8 @@ public class ArticleController {
             data.id = id;
             data.releaseTime = time;
 
+
+
             baseResult.setData(data);
         } else {
             baseResult = BaseResult.getErrorBaseData();
