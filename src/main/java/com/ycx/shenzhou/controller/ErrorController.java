@@ -13,4 +13,11 @@ public class ErrorController {
         baseResult.setMessage("token error");
         return JSONUtil.objectToString(baseResult);
     }
+
+    @RequestMapping("/error/accountError")
+    public String accountErrer() {
+        BaseResult baseResult = BaseResult.getErrorBaseData();
+        baseResult.setMessage("account error");
+        return JSONUtil.objectToString(baseResult);
+    }
 }

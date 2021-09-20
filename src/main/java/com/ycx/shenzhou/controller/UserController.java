@@ -88,7 +88,6 @@ public class UserController {
         String headPortraitUrl;
     }
 
-
     @GetMapping("/getOwnInfo")
     public String getOwnInfo(HttpServletRequest request) {
         String account = (String) request.getAttribute("account");

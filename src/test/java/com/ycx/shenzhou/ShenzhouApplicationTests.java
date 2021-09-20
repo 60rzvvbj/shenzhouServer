@@ -22,10 +22,15 @@ class ShenzhouApplicationTests {
 
     @Test
     void contextLoads() {
-        Guide guide = new Guide();
-        guide.setId("2");
-        guide.setIntroduction("非常优秀");
-        System.out.println(guideService.modifyGuide(guide));
+        Article article = new Article();
+        article.setAccount("1808078515");
+        article.setTitle("真可以");
+        article.setPlacename("广州塔");
+        article.setProvince("广东");
+        article.setReleasetime(new Date().getTime());
+        article.setContent("广州塔真可以");
+
+        System.out.println(articleService.addArticle(article));
     }
 
 }
