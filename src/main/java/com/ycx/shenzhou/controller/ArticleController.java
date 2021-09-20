@@ -49,8 +49,20 @@ public class ArticleController {
             baseResult.setMessage("发布失败");
         }
 
-
         return JSONUtil.objectToString(baseResult);
     }
 
+    @PostMapping("editArticle")
+    public String editArticle(Article article) {
+        boolean res = articleService.modifyArticle(article);
+        BaseResult baseResult;
+        if (res) {
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("修改成功");
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("修改失败");
+        }
+        return JSONUtil.objectToString(baseResult);
+    }
 }

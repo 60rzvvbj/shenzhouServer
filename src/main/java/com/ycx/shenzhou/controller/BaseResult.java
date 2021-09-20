@@ -1,5 +1,8 @@
 package com.ycx.shenzhou.controller;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 // 基本返回数据
 public class BaseResult {
     private int code;
