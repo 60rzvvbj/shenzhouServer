@@ -19,7 +19,9 @@ public class PictureServiceImpl implements PictureService {
     private static final String RESULT_URL = "file/img/";
     private static final String DEFAULT_FOLDER = "file/default/";
     private static final int RANDOM_FILE_NAME_LENGTH = 15;
-    private static final char[] BASE_CHARACTER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    private static final char[] BASE_CHARACTER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     @Autowired
     private PictureMapper pictureMapper;
@@ -50,17 +52,34 @@ public class PictureServiceImpl implements PictureService {
         return RESULT_URL + fileName;
     }
 
+    private String getFileName(String url) {
+        return url.substring(RESULT_URL.length());
+    }
+
     @Override
-    public String uploadFile(MultipartFile file, String fileName, Picture picture) {
+    public boolean uploadFile(MultipartFile file, String fileName, Picture picture) {
+        if (fileName == null && picture.getUrl() != null) {
+            fileName = getFileName(picture.getUrl());
+        }
         Path path = new File("").toPath().resolve(ROOT_FOLDER + fileName);
         try {
             file.transferTo(path.toAbsolutePath().toFile());
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-        picture.setUrl(fileName);
+        if (fileIsExist(fileName)) {
+            return true;
+        }
+        picture.setUrl(getUrl(fileName));
+        picture.setPositionType(0);
         pictureMapper.addPicture(picture);
-        return getUrl(fileName);
+        return true;
+    }
+
+    @Override
+    public boolean modifyMeaning(Picture picture) {
+        return pictureMapper.modifyMeaning() > 0;
     }
 
     @Override
@@ -76,6 +95,11 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public String getUserHeadPortraitUrl(String account) {
         return pictureMapper.getUserHeadPortraitUrl(account);
+    }
+
+    @Override
+    public Picture getPicture(String id) {
+        return null;
     }
 
 

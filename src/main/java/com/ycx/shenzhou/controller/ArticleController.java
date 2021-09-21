@@ -1,8 +1,10 @@
 package com.ycx.shenzhou.controller;
 
 import com.ycx.shenzhou.pojo.Article;
+import com.ycx.shenzhou.pojo.Picture;
 import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.ArticleService;
+import com.ycx.shenzhou.service.PictureService;
 import com.ycx.shenzhou.service.UserService;
 import com.ycx.shenzhou.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ArticleController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PictureService pictureService;
 
     private static class ReleaseArticleData {
         public String id;
@@ -47,11 +52,14 @@ public class ArticleController {
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("发布成功");
 
+            Picture picture = new Picture();
+            picture.setPositionType(2);
+            picture.setSpecificPosition(Integer.parseInt(id));
+            pictureService.modifyMeaning(picture);
+
             ReleaseArticleData data = new ReleaseArticleData();
             data.id = id;
             data.releaseTime = time;
-
-
 
             baseResult.setData(data);
         } else {
