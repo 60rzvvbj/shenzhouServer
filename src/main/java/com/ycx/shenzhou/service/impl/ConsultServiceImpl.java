@@ -4,7 +4,9 @@ import com.ycx.shenzhou.mapper.ConsultMapper;
 import com.ycx.shenzhou.pojo.Consult;
 import com.ycx.shenzhou.service.ConsultService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("ConsultService")
 public class ConsultServiceImpl implements ConsultService {
 
     @Autowired

@@ -4,7 +4,10 @@ import com.ycx.shenzhou.mapper.ExchangeGiftMapper;
 import com.ycx.shenzhou.pojo.ExchangeGift;
 import com.ycx.shenzhou.service.ExchangeGiftService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service("ExchangeGiftService")
 public class ExchangeGiftServiceImpl implements ExchangeGiftService {
 
     @Autowired

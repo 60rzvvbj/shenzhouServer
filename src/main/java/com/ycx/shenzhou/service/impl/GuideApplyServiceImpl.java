@@ -7,9 +7,11 @@ import com.ycx.shenzhou.pojo.GuideApply;
 import com.ycx.shenzhou.service.GuideApplyService;
 import com.ycx.shenzhou.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("GuideApplyService")
 public class GuideApplyServiceImpl implements GuideApplyService {
 
     @Autowired

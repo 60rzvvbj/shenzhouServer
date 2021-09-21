@@ -4,7 +4,9 @@ import com.ycx.shenzhou.mapper.AdminMapper;
 import com.ycx.shenzhou.pojo.Admin;
 import com.ycx.shenzhou.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("AdminService")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired

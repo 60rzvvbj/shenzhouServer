@@ -5,9 +5,11 @@ import com.ycx.shenzhou.mapper.ParticipateMapper;
 import com.ycx.shenzhou.pojo.Collage;
 import com.ycx.shenzhou.service.CollageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("CollageService")
 public class CollageServiceImpl implements CollageService {
 
     @Autowired

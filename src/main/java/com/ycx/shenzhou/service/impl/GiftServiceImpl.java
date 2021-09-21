@@ -4,7 +4,9 @@ import com.ycx.shenzhou.mapper.GiftMapper;
 import com.ycx.shenzhou.pojo.Gift;
 import com.ycx.shenzhou.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("GiftService")
 public class GiftServiceImpl implements GiftService {
 
     @Autowired
