@@ -5,6 +5,7 @@ public class GuideApply {
     private long applytime; // 申请时间
     private String account; // 用户账号
     private String introduction; // 导游简介
+    private int status; // 申请状态 0:审核中, 1:申请成功, 2:申请失败
 
     public String getId() {
         return id;
@@ -38,13 +39,22 @@ public class GuideApply {
         this.introduction = introduction;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "Guideapply{" +
+        return "GuideApply{" +
                 "id='" + id + '\'' +
                 ", applytime=" + applytime +
                 ", account='" + account + '\'' +
                 ", introduction='" + introduction + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

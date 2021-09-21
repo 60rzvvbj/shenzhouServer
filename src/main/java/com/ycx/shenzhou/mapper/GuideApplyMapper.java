@@ -25,4 +25,7 @@ public interface GuideApplyMapper {
 
     @Select("select * from guideapply where id = #{id}")
     GuideApply getGuideApplyById(String id);
+
+    @Select("select * from guideapply where account = #{account}")
+    GuideApply getGuideApplyByAccount(String account);
 }

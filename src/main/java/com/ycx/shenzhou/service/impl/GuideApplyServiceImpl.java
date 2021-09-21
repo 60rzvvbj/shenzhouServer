@@ -8,6 +8,8 @@ import com.ycx.shenzhou.service.GuideApplyService;
 import com.ycx.shenzhou.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class GuideApplyServiceImpl implements GuideApplyService {
 
     @Autowired
@@ -18,6 +20,16 @@ public class GuideApplyServiceImpl implements GuideApplyService {
     public String addGuideApply(GuideApply guideApply) { // 添加导游申请
         guideApplyMapper.addGuideApply(guideApply); // 在数据库中添加导游申请
         return guideApply.getId(); // 返回导游申请的ID
+    }
+
+    @Override
+    public List<GuideApply> getAllGuideApply() { // 查看所有导游申请
+        return guideApplyMapper.getAllGuideApply();
+    }
+
+    @Override
+    public GuideApply getGuideApply(String account) { // 查看用户的导游申请
+        return guideApplyMapper.getGuideApplyByAccount(account);
     }
 
     @Override
