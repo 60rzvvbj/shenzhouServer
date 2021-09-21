@@ -22,4 +22,14 @@ public class AdminServiceImpl implements AdminService {
     public boolean removeAdmin(String id) {
         return adminMapper.removeAdmin(id); // 通过ID在数据库中删除管理员，并判断是否移除成功
     }
+
+    @Override
+    public boolean isAdmin(String account) {
+        Admin admin = new Admin();
+        admin = adminMapper.getAdminByAccount(account);
+        if(admin != null) {
+            return true;
+        }
+        return false;
+    }
 }
