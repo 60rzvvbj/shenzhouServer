@@ -52,7 +52,8 @@ create table guideapply
     id           int primary key auto_increment, -- 申请ID
     applytime    bigint,                         -- 申请时间
     account      varchar(20),                    -- 用户账号
-    introduction varchar(100)                    -- 导游简介
+    introduction varchar(100),                   -- 导游简介
+    status       int                             -- 申请状态 0:审核中, 1:申请成功, 2:申请失败
 );
 
 -- 管理员
