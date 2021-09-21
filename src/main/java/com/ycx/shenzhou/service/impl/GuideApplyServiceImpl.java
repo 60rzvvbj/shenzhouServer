@@ -9,6 +9,7 @@ import com.ycx.shenzhou.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("GuideApplyService")
@@ -20,6 +21,8 @@ public class GuideApplyServiceImpl implements GuideApplyService {
 
     @Override
     public String addGuideApply(GuideApply guideApply) { // 添加导游申请
+        guideApply.setApplyTime(new Date().getTime());
+        guideApply.setStatus(0);
         guideApplyMapper.addGuideApply(guideApply); // 在数据库中添加导游申请
         return guideApply.getId(); // 返回导游申请的ID
     }

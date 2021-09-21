@@ -2,7 +2,7 @@ package com.ycx.shenzhou.pojo;
 
 public class GuideApply {
     private String id; // 申请ID
-    private long applytime; // 申请时间
+    private long applyTime; // 申请时间
     private String account; // 用户账号
     private String introduction; // 导游简介
     private int status; // 申请状态 0:审核中, 1:申请成功, 2:申请失败
@@ -15,12 +15,12 @@ public class GuideApply {
         this.id = id;
     }
 
-    public long getApplytime() {
-        return applytime;
+    public long getApplyTime() {
+        return applyTime;
     }
 
-    public void setApplytime(long applytime) {
-        this.applytime = applytime;
+    public void setApplyTime(long applyTime) {
+        this.applyTime = applyTime;
     }
 
     public String getAccount() {
@@ -51,7 +51,7 @@ public class GuideApply {
     public String toString() {
         return "GuideApply{" +
                 "id='" + id + '\'' +
-                ", applytime=" + applytime +
+                ", applyTime=" + applyTime +
                 ", account='" + account + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", status=" + status +
