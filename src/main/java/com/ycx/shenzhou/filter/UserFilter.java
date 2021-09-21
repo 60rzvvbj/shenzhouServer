@@ -1,5 +1,7 @@
 package com.ycx.shenzhou.filter;
 
+import com.ycx.shenzhou.service.AdminService;
+import com.ycx.shenzhou.service.GuideService;
 import com.ycx.shenzhou.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -16,10 +18,17 @@ public class UserFilter implements Filter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GuideService guideService;
+
+    @Autowired
+    private AdminService adminService;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String uri = req.getRequestURI();
+        boolean status = false;
 
         // 如果是这些路径就直接放行
         String[] allowUris = {"/public", "/index.html", "/login", "/register", "/error"};
@@ -41,25 +50,51 @@ public class UserFilter implements Filter {
             }
         }
 
+        status = account.equals("");
+
         // 如果获取不到account则转发到accountError
-        if (account.equals("")) {
+        if (status) {
+            req.setAttribute("account", account); // 设置account
+        } else {
             req.getRequestDispatcher("/error/accountError").forward(servletRequest, servletResponse);
             return;
-        } else {
-            req.setAttribute("account", account); // 设置account
         }
 
-        filterChain.doFilter(servletRequest, servletResponse); // 放行
+        // 暂时放行
+        filterChain.doFilter(servletRequest, servletResponse);
         if (true) {
             return;
         }
 
-        // 其它路径需要验证token
+        // 验证token
         String token = req.getHeader("token");
-        if (userService.testToken(account, token)) {
-            filterChain.doFilter(servletRequest, servletResponse); // 放行
-        } else {
+        status = userService.testToken(account, token);
+
+        if (!status) {
             req.getRequestDispatcher("/error/tokenError").forward(servletRequest, servletResponse); // 失败则转发到/tokenError
+            return;
         }
+
+        if (uri.startsWith("/guide")) {
+
+            // 验证导游身份
+            status = guideService.isGuide(account);
+            if (!status) {
+                req.getRequestDispatcher("/error/identityError").forward(servletRequest, servletResponse); // 失败则转发到/identityError
+                return;
+            }
+        }
+
+        if (uri.startsWith("/admin")) {
+
+            // 验证管理员身份
+            status = adminService.isAdmin(account);
+            if (!status) {
+                req.getRequestDispatcher("/error/identityError").forward(servletRequest, servletResponse); // 失败则转发到/identityError
+                return;
+            }
+        }
+
+        filterChain.doFilter(servletRequest, servletResponse); // 一切OK放行
     }
 }

@@ -10,4 +10,6 @@ public interface AdminService {
     // 删除管理员
     boolean removeAdmin(String id);
 
+    // 判断用户是否为管理员
+    boolean isAdmin(String account);
 }

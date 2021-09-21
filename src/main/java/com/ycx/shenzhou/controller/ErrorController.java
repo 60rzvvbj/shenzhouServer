@@ -15,9 +15,16 @@ public class ErrorController {
     }
 
     @RequestMapping("/error/accountError")
-    public String accountErrer() {
+    public String accountError() {
         BaseResult baseResult = BaseResult.getErrorBaseData();
         baseResult.setMessage("account error");
+        return JSONUtil.objectToString(baseResult);
+    }
+
+    @RequestMapping("/error/identityError")
+    public String identityError() {
+        BaseResult baseResult = BaseResult.getErrorBaseData();
+        baseResult.setMessage("identity error");
         return JSONUtil.objectToString(baseResult);
     }
 }
