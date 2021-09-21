@@ -52,10 +52,16 @@ public class ArticleController {
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("发布成功");
 
-            Picture picture = new Picture();
-            picture.setPositionType(2);
-            picture.setSpecificPosition(Integer.parseInt(id));
-            pictureService.modifyMeaning(picture);
+            // 如果有配图
+            if (pictureId != null) {
+
+                // 给对应配图附上含义
+                Picture picture = new Picture();
+                picture.setId(pictureId);
+                picture.setPositionType(2);
+                picture.setSpecificPosition(Integer.parseInt(id));
+                pictureService.modifyMeaning(picture);
+            }
 
             ReleaseArticleData data = new ReleaseArticleData();
             data.id = id;
@@ -70,7 +76,7 @@ public class ArticleController {
         return JSONUtil.objectToString(baseResult);
     }
 
-    @PostMapping("editArticle")
+    @PostMapping("/editArticle")
     public String editArticle(Article article) {
         boolean res = articleService.modifyArticle(article);
         BaseResult baseResult;
