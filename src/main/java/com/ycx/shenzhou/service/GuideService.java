@@ -12,6 +12,9 @@ public interface GuideService {
     // 通过账号获取导游信息
     Guide getGuide(String account);
 
+    // 通过导游ID获取导游信息
+    Guide getGuideById(String id);
+
     // 添加导游
     String addGuide(Guide guide);
 
