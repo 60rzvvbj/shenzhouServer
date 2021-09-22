@@ -43,6 +43,9 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
     @Override
     public boolean modifyExchangeStatus(String id, int status) {
         ExchangeGift exchangeGift = exchangeGiftMapper.getExchangeGiftById(id); // 从数据库中获取兑换申请
+        if(exchangeGift == null) {
+            return false;
+        }
         exchangeGift.setStatus(status); // 修改status
         return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0; // 修改数据库中对应的兑换申请;
     }

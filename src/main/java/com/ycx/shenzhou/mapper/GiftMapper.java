@@ -21,7 +21,7 @@ public interface GiftMapper {
     @Delete("delete from gift where id = #{id}")
     boolean removeGift(String id);
 
-    @Update("update gift set name = #{name}, describe = #{describe}, price = #{price} where id = #{id}")
+    @Update("update gift set name = #{name}, describes = #{describe}, price = #{price} where id = #{id}")
     int modifyGift(Gift gift);
 
     @Update("update gift set status = #{status} where id = #{id}")

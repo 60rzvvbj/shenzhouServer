@@ -50,21 +50,22 @@ public class GuideServiceImpl implements GuideService {
         List<Guide> guides = guideMapper.getAllGuide();
         List<Guide> res = new LinkedList<>();
 
-        // 如果总数大于GUIDE_NUMBER则在其中随机抽取12个，不可以重复
         int n = guides.size();
-        int len = 12;
-        int[] randomNum = RandomUtil.getRandomNum(n, len);
-        if(n > GUIDE_NUMBER) {
-            for(int i = 0; i < 12; i++){
+        int len = GUIDE_NUMBER;
+
+        // 如果总数大于GUIDE_NUMBER则在其中随机抽取12个，不可以重复
+        if(n > len) {
+            int[] randomNum = RandomUtil.getRandomNum(n, len);
+            for(int i = 0; i < len; i++){
                 res.add(guides.get(randomNum[i]));
             }
         }
 
         // 如果总数小于GUIDE_NUMBER则全部返回
         else {
-           for(int i = 0; i < GUIDE_NUMBER; i++){
-               res.add(guides.get(i));
-           }
+            for (Guide guide : guides) {
+                res.add(guide);
+            }
         }
         return res;
     }
