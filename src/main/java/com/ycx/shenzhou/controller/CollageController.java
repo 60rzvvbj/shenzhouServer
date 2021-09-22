@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -96,5 +97,91 @@ public class CollageController {
         return JSONUtil.objectToString(baseResult);
     }
 
+    private static class GetCollageData {
+        public List<Collage> collageList;
+    }
+
+    @GetMapping("/getLaunchCollage")
+    public String getLaunchCollage(HttpServletRequest request) {
+        String account = (String) request.getAttribute("account");
+        List<Collage> collages = collageService.getLaunchCollage(account);
+
+        BaseResult baseResult;
+
+        if (collages != null) {
+            GetCollageData data = new GetCollageData();
+            data.collageList = collages;
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
+
+    @GetMapping("/getJoinCollage")
+    public String getJoinCollage(HttpServletRequest request) {
+        String account = (String) request.getAttribute("account");
+        List<Collage> collages = collageService.getJoinCollage(account);
+
+        BaseResult baseResult;
+
+        if (collages != null) {
+            GetCollageData data = new GetCollageData();
+            data.collageList = collages;
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
+
+    @GetMapping("/public/getSomeCollage")
+    public String getSomeCollage() {
+        List<Collage> collages = collageService.getSomeCollage();
+
+        BaseResult baseResult;
+
+        if (collages != null) {
+            GetCollageData data = new GetCollageData();
+            data.collageList = collages;
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
+
+    @PostMapping("/joinCollage")
+    public String joinCollage(HttpServletRequest request, String id) {
+        String account = (String) request.getAttribute("account");
+        boolean res = collageService.joinCollage(account, id);
+
+        BaseResult baseResult;
+
+        if (res) {
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("加入成功");
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("加入失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
 
 }
