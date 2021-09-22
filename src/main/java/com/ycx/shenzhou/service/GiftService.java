@@ -2,6 +2,8 @@ package com.ycx.shenzhou.service;
 
 import com.ycx.shenzhou.pojo.Gift;
 
+import java.util.List;
+
 public interface GiftService {
 
     // 添加礼品
@@ -15,5 +17,8 @@ public interface GiftService {
 
     // 移除礼品
     boolean removeGift(String id);
+
+    // 获取所有未兑换的礼品
+    List<Gift> getAllGift();
 
 }
