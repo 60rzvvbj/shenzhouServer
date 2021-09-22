@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class ConsultController {
@@ -109,7 +108,7 @@ public class ConsultController {
             GetConsultData data = new GetConsultData();
             data.consultList = new LinkedList<>();
 
-            for (Consult consult: consults) {
+            for (Consult consult : consults) {
                 GetConsultData.ConsultData consultData = new GetConsultData.ConsultData();
                 consultData.id = consult.getId();
                 consultData.account = guideService.getGuideById(consult.getGid()).getAccount();
@@ -143,7 +142,7 @@ public class ConsultController {
             GetConsultData data = new GetConsultData();
             data.consultList = new LinkedList<>();
 
-            for (Consult consult: consults) {
+            for (Consult consult : consults) {
                 GetConsultData.ConsultData consultData = new GetConsultData.ConsultData();
                 consultData.id = consult.getId();
                 consultData.account = consult.getAccount();

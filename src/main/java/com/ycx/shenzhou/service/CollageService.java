@@ -18,4 +18,15 @@ public interface CollageService {
     // 加入拼团
     boolean joinCollage(String account, String id);
 
+    // 查看一些拼团
+    List<Collage> getSomeCollage();
+
+    // 查找我发起的拼团
+    List<Collage> getLaunchCollage(String account);
+
+    // 查看我参与的拼团
+    List<Collage> getJoinCollage(String account);
+
+    // 通过ID查找拼团
+    Collage getCollage(String id);
 }
