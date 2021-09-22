@@ -7,6 +7,7 @@ import com.ycx.shenzhou.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("ArticleService")
@@ -48,6 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String addArticle(Article article) {
+        article.setReleaseTime(new Date().getTime());
         articleMapper.addArticle(article);
         return article.getId();
     }

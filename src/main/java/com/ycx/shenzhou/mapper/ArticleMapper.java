@@ -44,11 +44,11 @@ public interface ArticleMapper {
             "limit #{page}, #{number};")
     List<Article> getArticleByProvince(String province, int page, int number);
 
-    @Insert("insert into article values(null, #{title}, #{placename}, #{province}, #{releasetime}, #{content}, #{account});")
+    @Insert("insert into article values(null, #{title}, #{placeName}, #{province}, #{releaseTime}, #{content}, #{account});")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addArticle(Article article);
 
-    @Update("update article set title = #{title}, placename = #{placename}, province = #{province}, releasetime = #{releasetime}, content = #{content}, account = #{account} where id = #{id}")
+    @Update("update article set title = #{title}, placename = #{placeName}, province = #{province}, releasetime = #{releaseTime}, content = #{content}, account = #{account} where id = #{id}")
     int modifyArticle(Article article);
 
     @Delete("delete from article where id = #{id}")

@@ -22,6 +22,14 @@ class ShenzhouApplicationTests {
 
     @Test
     void contextLoads() {
+        Article article = new Article();
+        article.setAccount("cht");
+        article.setTitle("asd");
+        article.setPlaceName("qwe");
+        article.setProvince("广东");
+        article.setContent("qwe好");
+        String id = articleService.addArticle(article);
+        System.out.println(id);
     }
 
 }

@@ -128,17 +128,20 @@ public class ArticleController {
     @GetMapping("/public/getArticles")
     public String getArticles(int page, String province) {
         BaseResult baseResult;
-        baseResult = BaseResult.getSuccessBaseData();
         List<Article> articles;
+
+        // 判断是否需要通过省份筛选
         if (province != null) {
             articles = articleService.getArticleByProvince(province, page);
         } else {
             articles = articleService.getArticleByPage(page);
         }
-        GetArticlesData getArticlesData = new GetArticlesData();
-        getArticlesData.articles = new LinkedList<GetArticlesData.ArticleData>();
 
         if (articles != null) {
+            GetArticlesData getArticlesData = new GetArticlesData();
+            getArticlesData.articles = new LinkedList<GetArticlesData.ArticleData>();
+
+            // 遍历赋值
             for (Article article : articles) {
                 GetArticlesData.ArticleData articleData = new GetArticlesData.ArticleData();
 
@@ -153,11 +156,18 @@ public class ArticleController {
 
                 getArticlesData.articles.add(articleData);
             }
+
+            // 总页数
+            getArticlesData.pageCount = articleService.getPageCount(province);
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(getArticlesData);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
         }
 
-        getArticlesData.pageCount = articleService.getPageCount(province);
-
-        baseResult.setData(getArticlesData);
         return JSONUtil.objectToString(baseResult);
     }
 
@@ -177,9 +187,12 @@ public class ArticleController {
     public String getArticle(HttpServletRequest request, String id) {
         String account = (String) request.getAttribute("account");
         Article article = articleService.getArticle(id);
+
         BaseResult baseResult;
 
         if (article != null) {
+
+            // 结果集赋值
             GetArticleData articleData = new GetArticleData();
             articleData.title = article.getTitle();
             articleData.placeName = article.getPlaceName();
