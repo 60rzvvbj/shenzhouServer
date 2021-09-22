@@ -66,7 +66,7 @@ public class GuideController {
         public double score;
     }
 
-    @GetMapping("/getOwnGuideInfo")
+    @GetMapping("/guide/getOwnGuideInfo")
     public String getOwnGuideInfo(HttpServletRequest request) {
         String account = (String) request.getAttribute("account");
 
