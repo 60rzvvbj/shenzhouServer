@@ -85,24 +85,24 @@ create table collage
     departure   varchar(30),                    -- 起点
     destination varchar(30),                    -- 终点
     dtime       bigint,                         -- 出发时间
-    describe    varchar(100)                    -- 具体信息
+    describes   varchar(100)                    -- 具体信息
 );
 
 -- 参与拼团
 create table participate
 (
     account varchar(20), -- 参与人账号
-    cid     int,         -- 拼团ID
+    cid     int          -- 拼团ID
 );
 
 -- 礼品
 create table gift
 (
-    id       int primary key auto_increment, -- 礼品编号
-    name     varchar(30),                    -- 礼品名称
-    describe varchar(100),                   -- 礼品描述
-    price    int,                            -- 礼品价格
-    status   int                             -- 礼品状态 0: 未兑换, 1: 已兑换
+    id        int primary key auto_increment, -- 礼品编号
+    name      varchar(30),                    -- 礼品名称
+    describes varchar(100),                   -- 礼品描述
+    price     int,                            -- 礼品价格
+    status    int                             -- 礼品状态 0: 未兑换, 1: 已兑换
 );
 
 -- 兑换礼品申请
