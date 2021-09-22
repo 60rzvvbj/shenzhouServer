@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface GuideApplyMapper {
 
-    @Insert("insert into guideapply values(null, #{applytime}, #{account}, #{introduction})")
+    @Insert("insert into guideapply values(null, #{applyTime}, #{account}, #{introduction})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addGuideApply(GuideApply guideApply);
 
@@ -21,11 +21,14 @@ public interface GuideApplyMapper {
     boolean removeGuideApply(String id);
 
     @Select("select * from guideapply")
+    @Result(column = "applytime", property = "applyTime")
     List<GuideApply> getAllGuideApply();
 
     @Select("select * from guideapply where id = #{id}")
+    @Result(column = "applytime", property = "applyTime")
     GuideApply getGuideApplyById(String id);
 
     @Select("select * from guideapply where account = #{account}")
+    @Result(column = "applytime", property = "applyTime")
     GuideApply getGuideApplyByAccount(String account);
 }

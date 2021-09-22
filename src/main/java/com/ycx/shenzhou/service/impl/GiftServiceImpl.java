@@ -6,6 +6,8 @@ import com.ycx.shenzhou.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("GiftService")
 public class GiftServiceImpl implements GiftService {
 
@@ -34,5 +36,10 @@ public class GiftServiceImpl implements GiftService {
     @Override
     public boolean removeGift(String id) { // 移除礼品
         return giftMapper.removeGift(id); // 从数据库中移除礼品
+    }
+
+    @Override
+    public List<Gift> getAllGift() {
+        return null;
     }
 }

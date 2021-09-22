@@ -12,13 +12,13 @@ public interface ExperienceMapper {
     @Select("select * from experience where account = #{account}")
     Experience getExperienceByAccount(String account);
 
-    @Insert("insert into experience values(#{account}, #{value}, #{level}")
+    @Insert("insert into experience values(#{account}, #{value}, #{level})")
     int addExperience(Experience experience);
 
     @Delete("delete from experience where account = #{account}")
     boolean removeExperience(String account);
 
-    @Update("update gift set value = #{value}, level = #{level} where account = #{account}")
+    @Update("update experience set value = #{value}, level = #{level} where account = #{account}")
     int modifyExperience(Experience experience);
 
     @Select("select * from Experience")
