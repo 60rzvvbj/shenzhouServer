@@ -10,9 +10,12 @@ import java.util.List;
 @Mapper
 public interface CollageMapper {
     @Select("select * from collage where id = #{id}")
+    @Results(value = {@Result(column = "describes", property = "describe"),
+            @Result(column = "pnumber", property = "pNumber"),
+            @Result(column = "dtime", property = "dTime")})
     Collage getCollageById(String id);
 
-    @Insert("insert into collage values(null, #{account}, #{pnumber}, #{departure}, #{destination}, #{dtime}, #{describe})")
+    @Insert("insert into collage values(null, #{account}, #{pNumber}, #{departure}, #{destination}, #{dTime}, #{describe})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addCollage(Collage collage);
 
@@ -20,8 +23,14 @@ public interface CollageMapper {
     boolean removeCollage(String id);
 
     @Select("select * from collage where account = #{account}")
+    @Results(value = {@Result(column = "describes", property = "describe"),
+                     @Result(column = "pnumber", property = "pNumber"),
+                     @Result(column = "dtime", property = "dTime")})
     List<Collage> getCollageByAccount(String account);
 
     @Select("select * from collage")
+    @Results(value = {@Result(column = "describes", property = "describe"),
+            @Result(column = "pnumber", property = "pNumber"),
+            @Result(column = "dtime", property = "dTime")})
     List<Collage> getAllCollage();
 }

@@ -4,7 +4,7 @@ public class ExchangeGift {
     private String id; // 兑换ID
     private String account; // 用户账号
     private String gid; // 礼品编号
-    private long etime; // 申请时间
+    private long eTime; // 申请时间
     private String address; // 邮寄地址
     private int status; // 申请状态 -1: 申请失败, 0: 审核中, 1: 邮寄中, 2: 已收货
 
@@ -32,12 +32,12 @@ public class ExchangeGift {
         this.gid = gid;
     }
 
-    public long getEtime() {
-        return etime;
+    public long geteTime() {
+        return eTime;
     }
 
-    public void setEtime(long etime) {
-        this.etime = etime;
+    public void seteTime(long eTime) {
+        this.eTime = eTime;
     }
 
     public String getAddress() {
@@ -62,7 +62,7 @@ public class ExchangeGift {
                 "id='" + id + '\'' +
                 ", account='" + account + '\'' +
                 ", gid='" + gid + '\'' +
-                ", etime=" + etime +
+                ", eTime=" + eTime +
                 ", address='" + address + '\'' +
                 ", status=" + status +
                 '}';

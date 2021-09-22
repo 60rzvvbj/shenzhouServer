@@ -6,6 +6,8 @@ import com.ycx.shenzhou.service.ExchangeGiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 
 @Service("ExchangeGiftService")
 public class ExchangeGiftServiceImpl implements ExchangeGiftService {
@@ -15,6 +17,7 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
 
     @Override
     public String addExchange(ExchangeGift exchangeGift) { // 添加兑换申请
+        exchangeGift.seteTime(new Date().getTime());
         exchangeGift.setStatus(0); //申请状态为审核中
         exchangeGiftMapper.addExchangeGift(exchangeGift); // 在数据库中添加兑换申请
         return exchangeGift.getId(); // 返回兑换申请ID
@@ -30,8 +33,11 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
     @Override
     public boolean rejectExchange(String id) {
         ExchangeGift exchangeGift = exchangeGiftMapper.getExchangeGiftById(id); // 从数据库中获取兑换申请
+        if(exchangeGift == null) {
+            return false;
+        }
         exchangeGift.setStatus(-1); // 把status置为申请失败
-        return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0; // 修改数据库中对应的兑换申请
+        return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0;
     }
 
     @Override

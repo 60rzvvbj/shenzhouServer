@@ -29,6 +29,11 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
+    public Guide getGuideById(String id) {
+        return guideMapper.getGuideById(id);
+    }
+
+    @Override
     public String addGuide(Guide guide) {
         guideMapper.addGuide(guide);
         return guide.getId();

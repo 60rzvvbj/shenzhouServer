@@ -7,6 +7,7 @@ import com.ycx.shenzhou.service.CollageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("CollageService")
@@ -14,10 +15,13 @@ public class CollageServiceImpl implements CollageService {
 
     @Autowired
     private CollageMapper collageMapper;
+
+    @Autowired
     private ParticipateMapper participateMapper;
 
     @Override
     public String addCollage(Collage collage) { // 发起拼团
+        collage.setdTime(new Date().getTime());
         collageMapper.addCollage(collage); // 在数据库添加新的拼团信息
         return collage.getId(); // 返回拼团ID
     }

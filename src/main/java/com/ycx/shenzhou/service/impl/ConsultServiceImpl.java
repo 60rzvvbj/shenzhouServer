@@ -1,10 +1,14 @@
 package com.ycx.shenzhou.service.impl;
 
 import com.ycx.shenzhou.mapper.ConsultMapper;
+import com.ycx.shenzhou.mapper.GuideMapper;
 import com.ycx.shenzhou.pojo.Consult;
 import com.ycx.shenzhou.service.ConsultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service("ConsultService")
 public class ConsultServiceImpl implements ConsultService {
@@ -14,6 +18,7 @@ public class ConsultServiceImpl implements ConsultService {
 
     @Override
     public String addConsult(Consult consult) { // 发起咨询
+        consult.setConsultTime(new Date().getTime());
         consult.setStage(0); // 咨询阶段默认为0
         consultMapper.addConsult(consult); // 在数据库添加咨询记录
         return consult.getId(); // 获取咨询ID
@@ -40,5 +45,15 @@ public class ConsultServiceImpl implements ConsultService {
         Consult consult = consultMapper.getConsultById(id); // 从数据库中根据咨询ID获取咨询记录
         consult.setStage(3); // consult的stage改成咨询结束
         return consultMapper.modifyConsultScore(consult) > 0; // 没有只修改stage的方法，这个方法也可以修改stage
+    }
+
+    @Override
+    public List<Consult> getUserConsult(String account) {
+        return consultMapper.getConsultByAccount(account);
+    }
+
+    @Override
+    public List<Consult> getGuideConsult(String account) {
+        return consultMapper.getConsultByGid(account);
     }
 }

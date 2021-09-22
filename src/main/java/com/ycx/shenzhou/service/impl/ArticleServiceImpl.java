@@ -15,6 +15,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
     private ThumbMapper thumbMapper;
 
     // 每页的数量

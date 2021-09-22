@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface GiftMapper {
     @Select("select * from gift where id = #{id}")
+    @Result(column = "describes", property = "describe")
     Gift getGiftById(String id);
 
     @Insert("insert into gift values(null, #{name}, #{describe}, #{price}, #{status})")
@@ -27,8 +28,10 @@ public interface GiftMapper {
     int modifyGiftStatus(Gift gift);
 
     @Select("select * from gift")
+    @Result(column = "describes", property = "describe")
     List<Gift> getAllGift();
 
     @Select("select * from gift where status = 0")
+    @Result(column = "describes", property = "describe")
     List<Gift> getAllNotExchange();
 }

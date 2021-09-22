@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ConsultMapper {
-    @Insert("insert into consult values(null, #{account}, #{gid}, #{consulttime}, #{content}" +
+    @Insert("insert into consult values(null, #{account}, #{gid}, #{consultTime}, #{content}" +
             ", null, null, #{stage})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addConsult(Consult consult);
@@ -18,9 +18,11 @@ public interface ConsultMapper {
     boolean removeConsult(String id);
 
     @Select("select * from consult")
+    @Result(column = "consulttime", property = "consultTime")
     List<Consult> getAllConsult();
 
     @Select("select * from consult where id = #{id}")
+    @Result(column = "consulttime", property = "consultTime")
     Consult getConsultById(String id);
 
     @Update("update consult set reply = #{reply}, stage = #{stage} where id = #{id}")
@@ -30,8 +32,10 @@ public interface ConsultMapper {
     int modifyConsultScore(Consult consult);
 
     @Select("select * from consult where gid = #{gid}")
+    @Result(column = "consulttime", property = "consultTime")
     List<Consult> getConsultByGid(String gid);
 
     @Select("select * from consult where account = #{account}")
+    @Result(column = "consulttime", property = "consultTime")
     List<Consult> getConsultByAccount(String account);
 }

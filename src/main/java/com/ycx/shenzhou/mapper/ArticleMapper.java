@@ -17,7 +17,7 @@ public interface ArticleMapper {
             "\tfrom thumb\n" +
             ") as t\n" +
             "on id = aid\n" +
-            "where aid = #{id};")
+            "where id = #{id};")
     Article getArticleById(String id);
 
     @Select("select article.*, if(thumb is null, 0, thumb)\n" +
@@ -48,7 +48,7 @@ public interface ArticleMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addArticle(Article article);
 
-    @Update("update article set title = #{title}, placename = #{placeName}, province = #{province}, releasetime = #{releaseTime}, content = #{content}, account = #{account} where id = #{id}")
+    @Update("update article set title = #{title}, placename = #{placeName}, province = #{province}, content = #{content} where id = #{id}")
     int modifyArticle(Article article);
 
     @Delete("delete from article where id = #{id}")
