@@ -214,4 +214,22 @@ public class ArticleController {
 
         return JSONUtil.objectToString(baseResult);
     }
+
+    @PostMapping("/rewardArticle")
+    public String rewardArticle(HttpServletRequest request, String quota, String id) {
+        String account = (String) request.getAttribute("account");
+
+        boolean res = articleService.rewardArticle(account, id);
+
+        BaseResult baseResult;
+        if (res) {
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("打赏成功");
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("打赏失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
 }

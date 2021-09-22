@@ -34,4 +34,7 @@ public interface ArticleService {
 
     // 是否点了赞
     boolean isThumb(String account, String id);
+
+    // 打赏文章
+    boolean rewardArticle(String account, String id);
 }
