@@ -17,6 +17,8 @@ public class GuideApplyServiceImpl implements GuideApplyService {
 
     @Autowired
     private GuideApplyMapper guideApplyMapper;
+
+    @Autowired
     private GuideMapper guideMapper;
 
     @Override
