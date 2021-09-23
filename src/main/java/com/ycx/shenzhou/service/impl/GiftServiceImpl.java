@@ -39,7 +39,7 @@ public class GiftServiceImpl implements GiftService {
     }
 
     @Override
-    public List<Gift> getAllGift() {
-        return null;
+    public List<Gift> getAllGift() { // 获取所有未兑换的礼品
+        return giftMapper.getAllNotExchange();
     }
 }
