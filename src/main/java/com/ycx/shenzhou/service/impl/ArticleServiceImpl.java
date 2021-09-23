@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service("ArticleService")
@@ -21,6 +22,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     // 每页的数量
     private final int NUMBER = 10;
+
+    // 打赏对照表
+    private final int[] REWARD_COST = {6, 18, 30, 68, 198, 328, 648};
+    private final int[] REWARD_INCOME = {1, 4, 8, 20, 60, 110, 240};
 
     @Override
     public Article getArticle(String id) {
@@ -45,7 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             res = articleMapper.getPageCount();
         }
-        res = (int)Math.ceil((0.0 + res) / NUMBER);
+        res = (int) Math.ceil((0.0 + res) / NUMBER);
         return res;
     }
 
@@ -79,5 +84,19 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public boolean isThumb(String account, String id) {
         return thumbMapper.isThumb(account, id) > 0;
+    }
+
+    @Override
+    public boolean rewardArticle(String account, String id, int quota) {
+        return false;
+    }
+
+    @Override
+    public List<Integer> getRewardPriceTable() {
+        List<Integer> res = new LinkedList<>();
+        for (int cost : REWARD_COST) {
+            res.add(cost);
+        }
+        return res;
     }
 }

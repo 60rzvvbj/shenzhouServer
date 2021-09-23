@@ -36,5 +36,8 @@ public interface ArticleService {
     boolean isThumb(String account, String id);
 
     // 打赏文章
-    boolean rewardArticle(String account, String id);
+    boolean rewardArticle(String account, String id, int quota);
+
+    // 获取打赏价格表
+    List<Integer> getRewardPriceTable();
 }

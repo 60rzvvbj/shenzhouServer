@@ -216,10 +216,10 @@ public class ArticleController {
     }
 
     @PostMapping("/rewardArticle")
-    public String rewardArticle(HttpServletRequest request, String quota, String id) {
+    public String rewardArticle(HttpServletRequest request, int quota, String id) {
         String account = (String) request.getAttribute("account");
 
-        boolean res = articleService.rewardArticle(account, id);
+        boolean res = articleService.rewardArticle(account, id, quota);
 
         BaseResult baseResult;
         if (res) {
