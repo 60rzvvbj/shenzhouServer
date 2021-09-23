@@ -114,7 +114,7 @@ public class GiftController {
             baseResult = BaseResult.getErrorBaseData();
             baseResult.setMessage("获取失败");
         }
-        
+
         return JSONUtil.objectToString(baseResult);
     }
 }
