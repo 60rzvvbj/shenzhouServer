@@ -14,7 +14,7 @@ public interface ParticipateMapper {
     @Insert("insert into participate values(#{account}, #{cid})")
     int addParticipate(String account, String cid); // 添加拼团申请
 
-    @Select("select cid from participate where cid = #{id}")
+    @Select("select cid from participate where account = #{account}")
     List<String> getPaticipateByAccount(String account);
 
     @Select("select account from participate where cid = #{id}") // 通过拼团ID查

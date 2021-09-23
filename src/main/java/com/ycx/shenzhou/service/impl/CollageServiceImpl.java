@@ -15,7 +15,7 @@ import java.util.List;
 @Service("CollageService")
 public class CollageServiceImpl implements CollageService {
 
-    private final int COLLAGE_NUMBER = 12;
+    private final int COLLAGE_NUMBER = 11;
 
     @Autowired
     private CollageMapper collageMapper;
@@ -50,20 +50,21 @@ public class CollageServiceImpl implements CollageService {
         List<Collage> collages = collageMapper.getAllCollage();
         List<Collage> res = new LinkedList<>();
 
-        // 如果总数大于COLLAGE_NUMBER则在其中随机抽取12个，不可以重复
         int n = collages.size();
         int len = COLLAGE_NUMBER;
-        int[] randomNum = RandomUtil.getRandomNum(n, len);
-        if(n > COLLAGE_NUMBER) {
-            for(int i = 0; i < 12; i++){
+
+        // 如果总数大于COLLAGE_NUMBER则在其中随机抽取12个，不可以重复
+        if(n > len) {
+            int[] randomNum = RandomUtil.getRandomNum(n, len);
+            for(int i = 0; i < len; i++){
                 res.add(collages.get(randomNum[i]));
             }
         }
 
         // 如果总数小于COLLAGE_NUMBER则全部返回
         else {
-            for(int i = 0; i < COLLAGE_NUMBER; i++) {
-                res.add(collages.get(i));
+            for (Collage collage : collages) {
+                res.add(collage);
             }
         }
         return res;

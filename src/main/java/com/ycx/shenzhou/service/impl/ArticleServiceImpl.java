@@ -80,4 +80,10 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean isThumb(String account, String id) {
         return thumbMapper.isThumb(account, id) > 0;
     }
+
+    @Override
+    public boolean rewardArticle(String account, String id) {
+
+        return false;
+    }
 }

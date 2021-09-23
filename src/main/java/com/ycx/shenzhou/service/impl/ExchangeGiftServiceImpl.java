@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Service("ExchangeGiftService")
@@ -53,5 +54,10 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
     @Override
     public boolean removeExchange(String id) {
         return exchangeGiftMapper.removeExchangeGift(id); // 通过ID从数据库中移除兑换申请
+    }
+
+    @Override
+    public List<ExchangeGift> getAllExchangeGift() {
+        return exchangeGiftMapper.getAllExchangeGift();
     }
 }
