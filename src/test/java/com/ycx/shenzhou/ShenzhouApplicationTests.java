@@ -16,10 +16,10 @@ import java.util.List;
 class ShenzhouApplicationTests {
 
     @Autowired
-    private GuideService guideService;
+    private CollageService collageService;
 
     @Test
     void contextLoads() {
-        System.out.println(guideService.getRandomGuide());
+        System.out.println(collageService.getCollage("1"));
     }
 }

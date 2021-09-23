@@ -2,7 +2,9 @@ package com.ycx.shenzhou.service.impl;
 
 import com.ycx.shenzhou.mapper.ArticleMapper;
 import com.ycx.shenzhou.mapper.ThumbMapper;
+import com.ycx.shenzhou.mapper.UserMapper;
 import com.ycx.shenzhou.pojo.Article;
+import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ThumbMapper thumbMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     // 每页的数量
     private final int NUMBER = 10;
@@ -88,7 +93,27 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public boolean rewardArticle(String account, String id, int quota) {
-        return false;
+        int flag = -1;
+        for (int i = 0; i < REWARD_COST.length; i++) {
+            if (quota == REWARD_COST[i]) {
+                flag = i;
+            }
+        }
+        if(flag == -1){
+            return false;
+        }
+
+        Article article = articleMapper.getArticleById("id"); // 获取到相关文章
+        if(article == null) {
+             return false;
+        }
+
+        User user = userMapper.getUserByAccount(account); // 打赏人
+        user.setBalance(user.getBalance() - quota); // 余额减少
+        String author_Article = article.getAccount(); // 通过文章ID获取到作者的账号
+        User author = userMapper.getUserByAccount(author_Article); // 通过账号获取到作者的对象
+        author.setBalance(author.getBalance() + REWARD_INCOME[flag]); // 余额增加
+        return userMapper.modifyBalance(user) > 0 && userMapper.modifyBalance(author) > 0;
     }
 
     @Override
