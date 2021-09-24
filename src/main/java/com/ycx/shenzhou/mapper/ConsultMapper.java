@@ -38,4 +38,7 @@ public interface ConsultMapper {
     @Select("select * from consult where account = #{account}")
     @Result(column = "consulttime", property = "consultTime")
     List<Consult> getConsultByAccount(String account);
+
+    @Select("select score from consult where gid = #{gid}")
+    List<Integer> getScoreById(String id);
 }
