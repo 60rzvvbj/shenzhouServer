@@ -24,4 +24,7 @@ public interface ConsultService {
     // 查看某个导游收到的咨询
     List<Consult> getGuideConsult(String account);
 
+    // 获取导游评分
+    double getGuideScore(String gid);
+
 }
