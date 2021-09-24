@@ -56,4 +56,14 @@ public class ConsultServiceImpl implements ConsultService {
     public List<Consult> getGuideConsult(String account) {
         return consultMapper.getConsultByGid(account);
     }
+
+    @Override
+    public double getGuideScore(String gid) {
+        List<Integer> score = consultMapper.getScoreById(gid);
+        int scores = 0;
+        for (Integer integer : score) {
+            scores += integer;
+        }
+        return 1.0 * scores / score.size();
+    }
 }
