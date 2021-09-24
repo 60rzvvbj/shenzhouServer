@@ -1,10 +1,7 @@
 package com.ycx.shenzhou.mapper;
 
 import com.ycx.shenzhou.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +9,9 @@ import java.util.List;
 @Repository
 @Mapper
 public interface UserMapper {
+
+    @Insert("insert into user values(#{account}, #{pwd}, #{username}, null, 0)")
+    int addUser(User user);
 
     @Select("select * from user")
     List<User> getAllUser();

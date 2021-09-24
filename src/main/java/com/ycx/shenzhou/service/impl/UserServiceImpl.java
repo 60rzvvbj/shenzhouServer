@@ -17,7 +17,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(String account, String pwd, String username) {
-        return !account.equals("1808078515");
+        User user = userMapper.getUserByAccount(account);
+        if (user == null) {
+            User u = new User();
+            u.setAccount(account);
+            u.setPwd(pwd);
+            u.setUsername(username);
+            int res = userMapper.addUser(u);
+            return res > 0;
+        } else {
+            return false;
+        }
     }
 
     @Override

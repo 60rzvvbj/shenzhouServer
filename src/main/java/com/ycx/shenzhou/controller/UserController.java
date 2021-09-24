@@ -8,6 +8,7 @@ import com.ycx.shenzhou.service.UserService;
 import com.ycx.shenzhou.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class UserController {
     @Autowired
     private PictureService pictureService;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public String register(String account, String password, String username) {
         boolean res = userService.register(account, password, username);
         BaseResult baseData;
@@ -43,10 +44,10 @@ public class UserController {
 
     // 登录返回数据
     private static class LoginData {
-        String token;
+        public String token;
     }
 
-    @GetMapping("/login")
+    @PostMapping ("/login")
     public String login(String account, String password) {
         boolean res = userService.login(account, password);
         BaseResult baseData;
@@ -64,7 +65,7 @@ public class UserController {
         return JSONUtil.objectToString(baseData);
     }
 
-    @GetMapping("/changePwd")
+    @PostMapping("/changePwd")
     public String changePwd(HttpServletRequest request, String oldPassword, String newPassword) {
         String account = (String) request.getAttribute("account");
         boolean res = userService.changePwd(account, oldPassword, newPassword);
@@ -133,6 +134,36 @@ public class UserController {
             baseResult = BaseResult.getErrorBaseData();
             baseResult.setMessage("修改失败");
         }
+        return JSONUtil.objectToString(baseResult);
+    }
+
+    private static class GetUserInfoData {
+        public String username;
+        public String other;
+        public int level;
+        public String headPortraitUrl;
+    }
+
+    @GetMapping("/public/getUserInfo")
+    public String getUserInfo(String account) {
+        User user = userService.getUserInfo(account);
+        BaseResult baseResult;
+
+        if (user != null) {
+            GetUserInfoData data = new GetUserInfoData();
+            data.username = user.getUsername();
+            data.other = user.getOther();
+            data.level = experienceService.getExperienceByAccount(account).getLevel();
+            data.headPortraitUrl = pictureService.getUserHeadPortraitUrl(account);
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
         return JSONUtil.objectToString(baseResult);
     }
 

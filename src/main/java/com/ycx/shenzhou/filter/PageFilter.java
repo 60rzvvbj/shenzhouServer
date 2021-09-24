@@ -16,7 +16,7 @@ public class PageFilter implements Filter {
         String uri = req.getRequestURI();
 
         String[] pages = {"/", "/home", "/login"};
-        for(String allowUri:pages) {
+        for (String allowUri : pages) {
             if (uri.equals(allowUri)) {
                 req.getRequestDispatcher("/index.html").forward(servletRequest, servletResponse);
                 return;

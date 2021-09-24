@@ -35,7 +35,7 @@ public class UserFilter implements Filter {
         for (String allowUri : allowUris) {
             if (uri.startsWith(allowUri)) {
                 filterChain.doFilter(servletRequest, servletResponse);
-                break;
+                return;
             }
         }
 

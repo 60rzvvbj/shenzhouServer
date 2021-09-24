@@ -25,6 +25,6 @@ public interface ConsultService {
     List<Consult> getGuideConsult(String account);
 
     // 获取导游评分
-    double getGuideScore(String gid);
+//    double getGuideScore(String gid);
 
 }

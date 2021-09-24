@@ -14,10 +14,6 @@ create table user
     balance  int          -- 余额
 );
 
--- 添加用户
-insert into user
-values ('001', '123456', '杨超旭', '暂无', 0);
-
 -- 文章
 create table article
 (
@@ -31,9 +27,6 @@ create table article
     -- 点赞数通过其它表计算
 );
 
-insert into article
-values (null, '真不错', '天安门', '北京', 1234567, '天安门真不错', '1808078515');
-
 -- 导游
 create table guide
 (
@@ -42,9 +35,6 @@ create table guide
     introduction varchar(100)                    -- 导游简介
     -- 评分由其它表计算
 );
-
-insert into guide
-values (null, '1808078515', '专业');
 
 -- 导游申请
 create table guideapply
@@ -140,6 +130,16 @@ create table thumb
     aid     int          -- 文章编号
 );
 
+-- 添加用户
+insert into user
+values ('001', '123456', '杨超旭', '暂无', 0);
+
+insert into article
+values (null, '真不错', '天安门', '北京', 1234567, '天安门真不错', '1808078515');
+
+insert into guide
+values (null, '1808078515', '专业');
+
 insert into thumb
 values ('1808078515', 1);
 
@@ -157,8 +157,7 @@ from article
          left join (
     select aid, count(aid) as thumb
     from thumb
-) as t
-                   on id = aid
+) as t on id = aid
 where aid = 1;
 
 select article.*, if(thumb is null, 0, thumb)
@@ -167,8 +166,7 @@ from article
     select aid, count(aid) as thumb
     from thumb
     group by aid
-) as t
-                   on id = aid limit 0, 10;
+) as t on id = aid limit 0, 10;
 
 select article.*, if(thumb is null, 0, thumb)
 from article
@@ -176,8 +174,7 @@ from article
     select aid, count(aid) as thumb
     from thumb
     group by aid
-) as t
-                   on id = aid
+) as t on id = aid
 where province = '广东' limit 0, 10;
 
 update article
