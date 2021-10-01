@@ -81,12 +81,12 @@ public class UserController {
     }
 
     private static class GetOwnInfoData {
-        String username;
-        String other;
-        int balance;
-        int experience;
-        int level;
-        String headPortraitUrl;
+        public String username;
+        public String other;
+        public int balance;
+        public int experience;
+        public int level;
+        public String headPortraitUrl;
     }
 
     @GetMapping("/getOwnInfo")
@@ -108,7 +108,7 @@ public class UserController {
             data.level = experience.getLevel();
 
             // 用户头像路径
-            String headPortraitUrl = pictureService.getUserHeadPortraitUrl(account);
+            String headPortraitUrl = pictureService.getUserHeadPortraitUrl(userService.getToken(account));
             data.headPortraitUrl = headPortraitUrl != null ? headPortraitUrl : pictureService.getDefaultPictureUrl(1);
 
             baseResult = BaseResult.getSuccessBaseData();

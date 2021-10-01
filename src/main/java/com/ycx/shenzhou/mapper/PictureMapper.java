@@ -12,7 +12,7 @@ public interface PictureMapper {
     @Select("select * from picture where id = #{id}")
     Picture getPictureById(String id);
 
-    @Insert("insert into picture values(null, #{url}, #{positionType}, #{specificPosition}")
+    @Insert("insert into picture values(null, #{url}, #{positionType}, #{specificPosition})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addPicture(Picture picture);
 
@@ -22,8 +22,8 @@ public interface PictureMapper {
     @Update("update picture set positiontype = #{positionType} and specificposition = #{specificPosition} where id = #{id}")
     int modifyMeaning();
 
-    @Select("select url from picture where positiontype = 1 and specificposition = #{account}")
-    String getUserHeadPortraitUrl(String account);
+    @Select("select url from picture where positiontype = 1 and specificposition = #{token}")
+    String getUserHeadPortraitUrl(String token);
 
     @Select("select url from picture where positiontype = 2 and specificposition = #{aid}")
     String getArticlePicture(String aid);

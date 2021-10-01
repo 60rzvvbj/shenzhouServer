@@ -14,8 +14,9 @@ public class PageFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String uri = req.getRequestURI();
+        System.out.println(uri);
 
-        String[] pages = {"/", "/home", "/login"};
+        String[] pages = {"/", "/home"};
         for (String allowUri : pages) {
             if (uri.equals(allowUri)) {
                 req.getRequestDispatcher("/index.html").forward(servletRequest, servletResponse);

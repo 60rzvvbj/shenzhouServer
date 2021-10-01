@@ -3,6 +3,8 @@ package com.ycx.shenzhou.service;
 import com.ycx.shenzhou.pojo.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
 public interface PictureService {
 
     // 获取随机文件名
@@ -23,5 +25,7 @@ public interface PictureService {
     // 通过ID获取图片信息
     Picture getPicture(String id);
 
+    // 获取文件
+    File getFile(String url);
 
 }

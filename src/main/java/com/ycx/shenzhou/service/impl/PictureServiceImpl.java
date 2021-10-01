@@ -3,6 +3,7 @@ package com.ycx.shenzhou.service.impl;
 import com.ycx.shenzhou.mapper.PictureMapper;
 import com.ycx.shenzhou.pojo.Picture;
 import com.ycx.shenzhou.service.PictureService;
+import com.ycx.shenzhou.util.JSONUtil;
 import com.ycx.shenzhou.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.nio.file.Path;
 @Service("PictureService")
 public class PictureServiceImpl implements PictureService {
 
-    private static final String ROOT_FOLDER = "src\\main\\resources\\static\\file\\img\\";
+    private static final String ROOT_FOLDER = "data\\file\\img\\";
     private static final String RESULT_URL = "file/img/";
     private static final String DEFAULT_FOLDER = "file/default/";
     private static final int RANDOM_FILE_NAME_LENGTH = 15;
@@ -60,6 +61,7 @@ public class PictureServiceImpl implements PictureService {
     public boolean uploadFile(MultipartFile file, String fileName, Picture picture) {
         if (fileName == null && picture.getUrl() != null) {
             fileName = getFileName(picture.getUrl());
+            picture.setPositionType(0);
         }
         Path path = new File("").toPath().resolve(ROOT_FOLDER + fileName);
         try {
@@ -72,7 +74,6 @@ public class PictureServiceImpl implements PictureService {
             return true;
         }
         picture.setUrl(getUrl(fileName));
-        picture.setPositionType(0);
         pictureMapper.addPicture(picture);
         return true;
     }
@@ -93,8 +94,8 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public String getUserHeadPortraitUrl(String account) {
-        return pictureMapper.getUserHeadPortraitUrl(account);
+    public String getUserHeadPortraitUrl(String token) {
+        return pictureMapper.getUserHeadPortraitUrl(token);
     }
 
     @Override
@@ -102,5 +103,9 @@ public class PictureServiceImpl implements PictureService {
         return null;
     }
 
+    @Override
+    public File getFile(String url) {
+        return new File("data\\" + url);
+    }
 
 }

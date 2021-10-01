@@ -50,7 +50,7 @@ public class UserFilter implements Filter {
             }
         }
 
-        status = account.equals("");
+        status = !account.equals("");
 
         // 如果获取不到account则转发到accountError
         if (status) {
