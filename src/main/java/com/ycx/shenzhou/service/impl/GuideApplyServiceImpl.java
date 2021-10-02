@@ -34,8 +34,8 @@ public class GuideApplyServiceImpl implements GuideApplyService {
     }
 
     @Override
-    public List<GuideApply> getAllGuideApply() { // 查看所有导游申请
-        return guideApplyMapper.getAllGuideApply();
+    public List<GuideApply> getAllGuideApply() { // 查看所有导游申请（只查审核中）
+        return guideApplyMapper.getAllGuideApply(0);
     }
 
     @Override

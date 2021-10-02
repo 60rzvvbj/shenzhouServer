@@ -23,9 +23,9 @@ public interface GuideApplyMapper {
     @Update("update guideapply set status = #{status} where id = #{id}")
     int modifyGiftApplyStatus(GuideApply guideApply);
 
-    @Select("select * from guideapply")
+    @Select("select * from guideapply where status = #{status}")
     @Result(column = "applytime", property = "applyTime")
-    List<GuideApply> getAllGuideApply();
+    List<GuideApply> getAllGuideApply(int status);
 
     @Select("select * from guideapply where id = #{id}")
     @Result(column = "applytime", property = "applyTime")
