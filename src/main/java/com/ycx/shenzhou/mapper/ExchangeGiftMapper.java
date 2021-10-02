@@ -12,6 +12,9 @@ public interface ExchangeGiftMapper {
     @Select("select * from exchangegift where id = #{id}")
     ExchangeGift getExchangeGiftById(String id);
 
+    @Select("select account from exchangegift where gid = #{gid}")
+    List<String> getExchangeGiftAccountByGid(String gid);
+
     @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{eTime}, #{address}, #{status})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int addExchangeGift(ExchangeGift exchangegift);
@@ -20,7 +23,6 @@ public interface ExchangeGiftMapper {
     boolean removeExchangeGift(String id);
 
     @Update("update exchangegift set state = #{status} where id = #{id}")
-
     int modifyExchangeGift(ExchangeGift exchangegift);
 
     @Select("select * from Exchangegift")
