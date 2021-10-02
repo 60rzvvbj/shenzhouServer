@@ -6,6 +6,7 @@ import com.ycx.shenzhou.mapper.UserMapper;
 import com.ycx.shenzhou.pojo.Article;
 import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.ArticleService;
+import com.ycx.shenzhou.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ExperienceService experienceService;
 
     // 每页的数量
     private final int NUMBER = 10;
@@ -65,8 +69,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setReleaseTime(new Date().getTime());
         articleMapper.addArticle(article);
         String account = article.getAccount();
-        ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
-        experienceServiceImpl.addExperience(account, experience);
+        experienceService.addExperience(account, experience);
         return article.getId();
     }
 
@@ -96,8 +99,7 @@ public class ArticleServiceImpl implements ArticleService {
             int experience = 1; // 被点赞1次加10点经验值
             Article article = this.getArticle(id);
             String articleAccount = article.getAccount(); // 获取文章的作者账号
-            ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
-            experienceServiceImpl.addExperience(articleAccount, experience);
+            experienceService.addExperience(articleAccount, experience);
             return true;
         }
         return false;

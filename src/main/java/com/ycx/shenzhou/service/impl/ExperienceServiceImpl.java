@@ -3,6 +3,7 @@ package com.ycx.shenzhou.service.impl;
 import com.ycx.shenzhou.mapper.ExperienceMapper;
 import com.ycx.shenzhou.pojo.Experience;
 import com.ycx.shenzhou.service.ExperienceService;
+import com.ycx.shenzhou.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ public class ExperienceServiceImpl implements ExperienceService {
     @Autowired
     private ExperienceMapper experienceMapper;
 
-
+    @Autowired
+    private UserService userService;
 
     // 经验对照表
     private final int[] EXPERIENCE_LEVER = {10, 30, 100, 400, 1000, 3000, 8000, 15000, 50000, 100000};
@@ -44,8 +46,7 @@ public class ExperienceServiceImpl implements ExperienceService {
         }
         experience1.setValue(value);
         experience1.setLevel(level);
-        UserServiceImpl userServiceImpl = new UserServiceImpl();
-        return experienceMapper.modifyExperience(experience1) > 0 && userServiceImpl.modifyBalance(account, money);
+        return experienceMapper.modifyExperience(experience1) > 0 && userService.modifyBalance(account, money);
     }
 
     @Override

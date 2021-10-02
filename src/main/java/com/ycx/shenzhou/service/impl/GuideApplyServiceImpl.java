@@ -4,6 +4,7 @@ import com.ycx.shenzhou.mapper.GuideApplyMapper;
 import com.ycx.shenzhou.mapper.GuideMapper;
 import com.ycx.shenzhou.pojo.Guide;
 import com.ycx.shenzhou.pojo.GuideApply;
+import com.ycx.shenzhou.service.ExperienceService;
 import com.ycx.shenzhou.service.GuideApplyService;
 import com.ycx.shenzhou.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class GuideApplyServiceImpl implements GuideApplyService {
 
     @Autowired
     private GuideMapper guideMapper;
+
+    @Autowired
+    private ExperienceService experienceService;
 
     @Override
     public String addGuideApply(GuideApply guideApply) { // 添加导游申请
@@ -48,8 +52,7 @@ public class GuideApplyServiceImpl implements GuideApplyService {
         guide.setIntroduction(guideApply.getIntroduction()); // 复制导游简介
         if (guideMapper.addGuide(guide) > 0) { // 在数据库中添加新的导游
             String account = guide.getAccount();
-            ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
-            experienceServiceImpl.addExperience(account, experience);
+            experienceService.addExperience(account, experience);
             return true;
         }
         return false;

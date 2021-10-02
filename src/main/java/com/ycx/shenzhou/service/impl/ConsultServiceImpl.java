@@ -5,6 +5,8 @@ import com.ycx.shenzhou.mapper.GuideMapper;
 import com.ycx.shenzhou.pojo.Consult;
 import com.ycx.shenzhou.pojo.Guide;
 import com.ycx.shenzhou.service.ConsultService;
+import com.ycx.shenzhou.service.ExperienceService;
+import com.ycx.shenzhou.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class ConsultServiceImpl implements ConsultService {
     @Autowired
     private GuideMapper guideMapper;
 
+    @Autowired
+    private ExperienceService experienceService;
+
+    @Autowired
+    private UserService userService;
+
     @Override
     public String addConsult(Consult consult) { // 发起咨询
         int experience = 2; // 发起咨询加2点经验值
@@ -27,8 +35,7 @@ public class ConsultServiceImpl implements ConsultService {
         consult.setStage(0); // 咨询阶段默认为0
         consultMapper.addConsult(consult); // 在数据库添加咨询记录
         String account = consult.getAccount();
-        ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
-        experienceServiceImpl.addExperience(account, experience);
+        experienceService.addExperience(account, experience);
         return consult.getId(); // 获取咨询ID
     }
 
@@ -42,8 +49,7 @@ public class ConsultServiceImpl implements ConsultService {
             String gid = consult.getGid(); // 导游编号
             Guide guide = guideMapper.getGuideById(gid); // 获取导游对象
             String account = guide.getAccount(); // 获取导游的用户编号
-            ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
-            experienceServiceImpl.addExperience(account, experience);
+            experienceService.addExperience(account, experience);
             return true;
         }
         return false;
@@ -60,8 +66,7 @@ public class ConsultServiceImpl implements ConsultService {
                 String gid = consult.getGid();
                 Guide guide = guideMapper.getGuideById(gid);
                 String account = guide.getAccount();
-                UserServiceImpl userServiceImpl = new UserServiceImpl();
-                userServiceImpl.modifyBalance(account, money);
+                userService.modifyBalance(account, money);
             }
             return true;
         }
