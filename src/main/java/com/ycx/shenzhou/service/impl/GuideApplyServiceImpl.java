@@ -63,7 +63,7 @@ public class GuideApplyServiceImpl implements GuideApplyService {
     @Override
     public boolean rejectGuideApply(String id) { // 拒绝导游申请
         GuideApply guideApply = guideApplyMapper.getGuideApplyById(id); // 从数据库中获取导游申请
-        guideApply.setStatus(2);
+        guideApply.setStatus(2);  // 修改状态为2
         return guideApplyMapper.modifyGiftApplyStatus(guideApply) > 0; // 从数据库中修改申请状态
     }
 
