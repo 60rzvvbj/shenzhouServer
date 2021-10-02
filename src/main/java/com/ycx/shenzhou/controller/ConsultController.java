@@ -144,6 +144,7 @@ public class ConsultController {
 
             for (Consult consult : consults) {
                 GetConsultData.ConsultData consultData = new GetConsultData.ConsultData();
+                System.out.println(consult);
                 consultData.id = consult.getId();
                 consultData.account = consult.getAccount();
                 consultData.consultTime = consult.getConsultTime();

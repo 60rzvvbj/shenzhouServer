@@ -32,6 +32,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public boolean addExperience(String account, int experience) { // 用户增加经验
+        System.out.println(account);
         Experience experience1 = experienceMapper.getExperienceByAccount(account); //  获取到对应的对象
         int level = experience1.getLevel(); // 初始等级
         int value = experience1.getValue(); // 初始经验

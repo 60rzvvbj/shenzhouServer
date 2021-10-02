@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -95,7 +96,7 @@ public class GiftController {
     }
 
     private static class GetAllGiftData {
-        public List<Gift> giftList;
+        public List<String> idList;
     }
 
     @GetMapping("/getAllGift")
@@ -104,8 +105,12 @@ public class GiftController {
         BaseResult baseResult;
 
         if (gifts != null) {
+            List<String> idList = new LinkedList<>();
+            for (Gift gift : gifts) {
+                idList.add(gift.getId());
+            }
             GetAllGiftData data = new GetAllGiftData();
-            data.giftList = gifts;
+            data.idList = idList;
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("获取成功");
@@ -116,5 +121,10 @@ public class GiftController {
         }
 
         return JSONUtil.objectToString(baseResult);
+    }
+
+    @GetMapping("/getGiftInfo")
+    public String getGiftInfo(String id) {
+        return "";
     }
 }

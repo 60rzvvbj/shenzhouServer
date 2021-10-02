@@ -49,7 +49,7 @@ public class ExchangeGiftController {
         public List<ExchangeGift> exchangeGiftList;
     }
 
-    @GetMapping("/amdin/getAllExchangeGift")
+    @GetMapping("/admin/getAllExchangeGift")
     public String getAllExchangeGift() {
         List<ExchangeGift> exchangeGifts = exchangeGiftService.getAllExchangeGift();
 

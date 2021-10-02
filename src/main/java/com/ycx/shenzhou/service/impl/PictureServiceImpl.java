@@ -88,7 +88,7 @@ public class PictureServiceImpl implements PictureService {
         if (type == 1) {
             return DEFAULT_FOLDER + "headPortrait.jpg";
         } else if (type == 3) {
-            return DEFAULT_FOLDER + "giftPicture.jpg";
+            return DEFAULT_FOLDER + "giftPicture.png";
         }
         return null;
     }

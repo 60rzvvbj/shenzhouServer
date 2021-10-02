@@ -21,4 +21,7 @@ public interface GiftService {
     // 获取所有未兑换的礼品
     List<Gift> getAllGift();
 
+    // 获取单个礼品
+    Gift getGift(String id);
+
 }
