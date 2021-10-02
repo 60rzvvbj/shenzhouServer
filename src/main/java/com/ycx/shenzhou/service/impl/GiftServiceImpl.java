@@ -1,5 +1,6 @@
 package com.ycx.shenzhou.service.impl;
 
+import com.ycx.shenzhou.mapper.ExchangeGiftMapper;
 import com.ycx.shenzhou.mapper.GiftMapper;
 import com.ycx.shenzhou.pojo.Gift;
 import com.ycx.shenzhou.service.GiftService;
@@ -13,6 +14,9 @@ public class GiftServiceImpl implements GiftService {
 
     @Autowired
     private GiftMapper giftMapper;
+
+    @Autowired
+    private ExchangeGiftMapper exchangeGiftMapper;
 
     @Override
     public String addGift(Gift gift) { // 添加礼品
@@ -35,11 +39,20 @@ public class GiftServiceImpl implements GiftService {
 
     @Override
     public boolean removeGift(String id) { // 移除礼品
-        return giftMapper.removeGift(id); // 从数据库中移除礼品
+        List<String> account = exchangeGiftMapper.getExchangeGiftAccountByGid(id);
+        if(account == null) {
+            return giftMapper.removeGift(id); // 从数据库中移除礼品
+        }
+        return false;
     }
 
     @Override
     public List<Gift> getAllGift() { // 获取所有未兑换的礼品
         return giftMapper.getAllNotExchange();
+    }
+
+    @Override
+    public Gift getGift(String id) {
+        return giftMapper.getGiftById(id);
     }
 }
