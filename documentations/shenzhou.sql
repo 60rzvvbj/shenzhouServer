@@ -187,4 +187,6 @@ where id = id;
 
 select * from consult where gid = 19;
 
-select * from guide where account = 002
+select * from guide where account = 002;
+
+alter table guideapply add column status int;

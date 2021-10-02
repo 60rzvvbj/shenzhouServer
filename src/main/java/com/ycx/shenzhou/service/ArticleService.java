@@ -14,6 +14,9 @@ public interface ArticleService {
     // 通过省份筛选
     List<Article> getArticleByProvince(String province, int page);
 
+    // 随机获取一些文章
+    List<Article> getRandomArticle();
+
     // 获取文章个数
     int getPageCount(String province);
 

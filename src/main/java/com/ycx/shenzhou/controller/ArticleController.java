@@ -171,6 +171,45 @@ public class ArticleController {
         return JSONUtil.objectToString(baseResult);
     }
 
+    @GetMapping("getRandomArticles")
+    public String getRandomArticles() {
+        BaseResult baseResult;
+        List<Article> articles = articleService.get;
+
+        if (articles != null) {
+            GetArticlesData getArticlesData = new GetArticlesData();
+            getArticlesData.articles = new LinkedList<GetArticlesData.ArticleData>();
+
+            // 遍历赋值
+            for (Article article : articles) {
+                GetArticlesData.ArticleData articleData = new GetArticlesData.ArticleData();
+
+                articleData.id = article.getId();
+                articleData.title = article.getTitle();
+                articleData.placeName = article.getPlaceName();
+                articleData.province = article.getProvince();
+                articleData.releaseTime = article.getReleaseTime();
+                articleData.content = article.getContent();
+                articleData.thumb = article.getThumb();
+                articleData.authorUsername = userService.getUserInfo(article.getAccount()).getUsername();
+
+                getArticlesData.articles.add(articleData);
+            }
+
+            // 总页数
+            getArticlesData.pageCount = articleService.getPageCount(province);
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(getArticlesData);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
+    }
+
     private static class GetArticleData {
         public String title;
         public String placeName;
