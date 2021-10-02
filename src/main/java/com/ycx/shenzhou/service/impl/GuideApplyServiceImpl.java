@@ -41,11 +41,18 @@ public class GuideApplyServiceImpl implements GuideApplyService {
 
     @Override
     public boolean acceptGuideApply(String id) { // 接受导游申请
+        int experience = 100; // 成为导游加100点经验值
         GuideApply guideApply = guideApplyMapper.getGuideApplyById(id); // 从数据库中获取导游申请
         Guide guide = new Guide(); // 创建一个新的导游对象
         guide.setAccount(guideApply.getAccount()); // 复制用户账号
         guide.setIntroduction(guideApply.getIntroduction()); // 复制导游简介
-        return guideMapper.addGuide(guide) > 0; // 在数据库中添加新的导游
+        if (guideMapper.addGuide(guide) > 0) { // 在数据库中添加新的导游
+            String account = guide.getAccount();
+            ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
+            experienceServiceImpl.addExperience(account, experience);
+            return true;
+        }
+        return false;
     }
 
     @Override

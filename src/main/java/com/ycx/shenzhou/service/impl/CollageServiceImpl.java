@@ -2,7 +2,9 @@ package com.ycx.shenzhou.service.impl;
 
 import com.ycx.shenzhou.mapper.CollageMapper;
 import com.ycx.shenzhou.mapper.ParticipateMapper;
+import com.ycx.shenzhou.mapper.UserMapper;
 import com.ycx.shenzhou.pojo.Collage;
+import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.CollageService;
 import com.ycx.shenzhou.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,17 @@ public class CollageServiceImpl implements CollageService {
     @Autowired
     private ParticipateMapper participateMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public String addCollage(Collage collage) { // 发起拼团
+        int experience = 10; // 发起拼团加10点经验值
         collage.setdTime(new Date().getTime());
         collageMapper.addCollage(collage); // 在数据库添加新的拼团信息
+        String account = collage.getAccount(); // 获取发起人账号
+        ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
+        experienceServiceImpl.addExperience(account, experience);
         return collage.getId(); // 返回拼团ID
     }
 
@@ -37,12 +46,27 @@ public class CollageServiceImpl implements CollageService {
 
     @Override
     public boolean completeCollage(String id) { // 完成拼团
+        int money = 1; // 成功完成拼团加1金币
+        Collage collage = collageMapper.getCollageById(id);
+        String account = collage.getAccount();
+        UserServiceImpl userServiceImpl = new UserServiceImpl();
+        userServiceImpl.modifyBalance(account, money); // 发起人得到1金币
+        List<String> participant = participateMapper.getPaticipateById(id);
+        for (String s : participant) {
+            userServiceImpl.modifyBalance(s, money); // 拼团完成时，除了发起人，其他参与人金币加1
+        }
         return collageMapper.removeCollage(id) && participateMapper.removePaticipateById(id); // 通过ID把拼团申请和参与拼团在数据库删了
     }
 
     @Override
     public boolean joinCollage(String account, String id) { // 加入拼团
-        return participateMapper.addParticipate(account, id) > 0; // 在数据库中添加拼团记录
+        if (participateMapper.addParticipate(account, id) > 0) { // 在数据库中添加拼团记录
+            int experience = 2; // 参与拼团加2点经验值
+            ExperienceServiceImpl experienceServiceImpl = new ExperienceServiceImpl();
+            experienceServiceImpl.addExperience(account, experience);
+            return true;
+        }
+        return false;
     }
 
     @Override

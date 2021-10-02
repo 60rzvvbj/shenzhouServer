@@ -45,7 +45,6 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
-    // 未测试
     public List<Guide> getRandomGuide() {
         List<Guide> guides = guideMapper.getAllGuide();
         List<Guide> res = new LinkedList<>();
