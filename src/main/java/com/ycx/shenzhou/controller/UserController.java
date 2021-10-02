@@ -2,9 +2,7 @@ package com.ycx.shenzhou.controller;
 
 import com.ycx.shenzhou.pojo.Experience;
 import com.ycx.shenzhou.pojo.User;
-import com.ycx.shenzhou.service.ExperienceService;
-import com.ycx.shenzhou.service.PictureService;
-import com.ycx.shenzhou.service.UserService;
+import com.ycx.shenzhou.service.*;
 import com.ycx.shenzhou.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +22,12 @@ public class UserController {
 
     @Autowired
     private PictureService pictureService;
+
+    @Autowired
+    private GuideService guideService;
+
+    @Autowired
+    private AdminService adminService;
 
     @PostMapping("/register")
     public String register(String account, String password, String username) {
@@ -47,7 +51,7 @@ public class UserController {
         public String token;
     }
 
-    @PostMapping ("/login")
+    @PostMapping("/login")
     public String login(String account, String password) {
         boolean res = userService.login(account, password);
         BaseResult baseData;
@@ -87,6 +91,8 @@ public class UserController {
         public int experience;
         public int level;
         public String headPortraitUrl;
+        public boolean isGuide;
+        public boolean isAdmin;
     }
 
     @GetMapping("/getOwnInfo")
@@ -110,6 +116,12 @@ public class UserController {
             // 用户头像路径
             String headPortraitUrl = pictureService.getUserHeadPortraitUrl(userService.getToken(account));
             data.headPortraitUrl = headPortraitUrl != null ? headPortraitUrl : pictureService.getDefaultPictureUrl(1);
+
+            // 是否为导游
+            data.isGuide = guideService.isGuide(account);
+
+            // 是否为管理员
+            data.isAdmin = adminService.isAdmin(account);
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("获取成功");

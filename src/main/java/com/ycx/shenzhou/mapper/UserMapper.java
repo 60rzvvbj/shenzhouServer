@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into user values(#{account}, #{pwd}, #{username}, null, 0)")
+    @Insert("insert into user values(#{account}, #{pwd}, #{username}, #{other}, 0)")
     int addUser(User user);
 
     @Select("select * from user")

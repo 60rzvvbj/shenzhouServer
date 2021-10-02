@@ -12,6 +12,8 @@ import java.util.List;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+    private static final String DEFAULT_OTHER = "这个用户很懒，什么都没有写";
+
     @Autowired
     private UserMapper userMapper;
 
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
             u.setAccount(account);
             u.setPwd(pwd);
             u.setUsername(username);
+            u.setOther(DEFAULT_OTHER);
             int res = userMapper.addUser(u);
             return res > 0;
         } else {
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean modifyBalance(String account, int money) {
         User user = userMapper.getUserByAccount(account);
-        if (user == null){
+        if (user == null) {
             return false;
         }
         user.setBalance(user.getBalance() + money);
