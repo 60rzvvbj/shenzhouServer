@@ -42,4 +42,9 @@ public class GiftServiceImpl implements GiftService {
     public List<Gift> getAllGift() { // 获取所有未兑换的礼品
         return giftMapper.getAllNotExchange();
     }
+
+    @Override
+    public Gift getGift(String id) {
+        return null;
+    }
 }

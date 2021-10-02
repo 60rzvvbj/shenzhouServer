@@ -135,16 +135,17 @@ public class ConsultController {
     @GetMapping("/guide/getConsults")
     public String getConsults(HttpServletRequest request) {
         String account = (String) request.getAttribute("account");
-        List<Consult> consults = consultService.getGuideConsult(account);
+        String gid = guideService.getGuide(account).getId();
+        List<Consult> consults = consultService.getGuideConsult(gid);
         BaseResult baseResult;
 
         if (consults != null) {
             GetConsultData data = new GetConsultData();
             data.consultList = new LinkedList<>();
+            System.out.println(consults.size());
 
             for (Consult consult : consults) {
                 GetConsultData.ConsultData consultData = new GetConsultData.ConsultData();
-                System.out.println(consult);
                 consultData.id = consult.getId();
                 consultData.account = consult.getAccount();
                 consultData.consultTime = consult.getConsultTime();

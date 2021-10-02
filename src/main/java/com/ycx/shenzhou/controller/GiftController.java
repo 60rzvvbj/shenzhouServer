@@ -123,8 +123,36 @@ public class GiftController {
         return JSONUtil.objectToString(baseResult);
     }
 
+    private static class GetGiftInfoData {
+        public String name;
+        public String describe;
+        public int price;
+        public String photo;
+    }
+
     @GetMapping("/getGiftInfo")
     public String getGiftInfo(String id) {
-        return "";
+        Gift gift = giftService.getGift(id);
+
+        BaseResult baseResult;
+        if (gift != null) {
+            GetGiftInfoData data = new GetGiftInfoData();
+            data.name = gift.getName();
+            data.describe = gift.getDescribe();
+            data.price = gift.getPrice();
+            data.photo = pictureService.getGiftPhotoUrl(gift.getId());
+            if (data.photo == null) {
+                data.photo = pictureService.getDefaultPictureUrl(3);
+            }
+
+            baseResult = BaseResult.getSuccessBaseData();
+            baseResult.setMessage("获取成功");
+            baseResult.setData(data);
+        } else {
+            baseResult = BaseResult.getErrorBaseData();
+            baseResult.setMessage("获取失败");
+        }
+
+        return JSONUtil.objectToString(baseResult);
     }
 }

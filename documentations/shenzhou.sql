@@ -184,3 +184,7 @@ where id = id;
 select *
 from guide
 where id = id;
+
+select * from consult where gid = 19;
+
+select * from guide where account = 002
