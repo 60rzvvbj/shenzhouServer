@@ -158,7 +158,7 @@ public class GuideApplyController {
         } else {
             res = guideApplyService.rejectGuideApply(id);
         }
-        String m = res ? "接受" : "拒绝";
+        String m = handle ? "接受" : "拒绝";
         BaseResult baseResult;
         if (res) {
             baseResult = BaseResult.getSuccessBaseData();
