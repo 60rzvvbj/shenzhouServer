@@ -174,7 +174,7 @@ public class ArticleController {
     @GetMapping("getRandomArticles")
     public String getRandomArticles() {
         BaseResult baseResult;
-        List<Article> articles = articleService.get;
+        List<Article> articles = articleService.getRandomArticle();
 
         if (articles != null) {
             GetArticlesData getArticlesData = new GetArticlesData();
@@ -195,9 +195,6 @@ public class ArticleController {
 
                 getArticlesData.articles.add(articleData);
             }
-
-            // 总页数
-            getArticlesData.pageCount = articleService.getPageCount(province);
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("获取成功");
