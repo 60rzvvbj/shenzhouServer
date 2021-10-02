@@ -60,5 +60,6 @@ public interface ArticleMapper {
     @Select("select count(*) from article where province = #{province}")
     int getPageCountByProvince(String province);
 
-
+    @Select("select * from article")
+    List<Article> getAllArticle();
 }

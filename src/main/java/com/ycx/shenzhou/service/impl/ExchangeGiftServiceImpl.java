@@ -1,7 +1,11 @@
 package com.ycx.shenzhou.service.impl;
 
 import com.ycx.shenzhou.mapper.ExchangeGiftMapper;
+import com.ycx.shenzhou.mapper.GiftMapper;
+import com.ycx.shenzhou.mapper.UserMapper;
 import com.ycx.shenzhou.pojo.ExchangeGift;
+import com.ycx.shenzhou.pojo.Gift;
+import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.ExchangeGiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +20,24 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
     @Autowired
     private ExchangeGiftMapper exchangeGiftMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private GiftMapper giftMapper;
+
     @Override
     public String addExchange(ExchangeGift exchangeGift) { // 添加兑换申请
+        String account = exchangeGift.getAccount(); // 获取用户账号
+        User user = userMapper.getUserByAccount(account);
+        String gid = exchangeGift.getGid(); // 获取礼物编号
+        Gift gift = giftMapper.getGiftById(gid); // 获取礼物对象
+        int price = gift.getPrice(); // 礼物的价格
+        if (user.getBalance() < price) { // 余额不足，不能换
+            return "null";
+        }
+        user.setBalance(user.getBalance() - price); // 可以换，先扣钱
+        userMapper.modifyBalance(user); // 操作数据库用户表
         exchangeGift.seteTime(new Date().getTime());
         exchangeGift.setStatus(0); //申请状态为审核中
         exchangeGiftMapper.addExchangeGift(exchangeGift); // 在数据库中添加兑换申请
@@ -38,7 +58,17 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
             return false;
         }
         exchangeGift.setStatus(-1); // 把status置为申请失败
-        return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0;
+        if (exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0) {
+            String account = exchangeGift.getAccount(); // 获取用户账号
+            String gid = exchangeGift.getGid(); // 获取礼物编号
+            Gift gift = giftMapper.getGiftById(gid); // 获取礼物对象
+            int price = gift.getPrice(); // 礼物的价格
+            User user = userMapper.getUserByAccount(account); // 获取对应的用户
+            user.setBalance(user.getBalance() + price);
+            userMapper.modifyBalance(user); // 给用户返还钱
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -58,6 +88,6 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
 
     @Override
     public List<ExchangeGift> getAllExchangeGift() {
-        return exchangeGiftMapper.getAllExchangeGift();
+        return exchangeGiftMapper.getAllExchangeGift(0);
     }
 }

@@ -42,8 +42,8 @@ public class ExperienceServiceImpl implements ExperienceService {
         value += experience;
         if (level <= EXPERIENCE_LEVER.length && value >= EXPERIENCE_LEVER[level - 1]) {
             value -= EXPERIENCE_LEVER[level - 1];
-            level++;
             money += GOLD_AWARD[level - 1];
+            level++;
         }
         experience1.setValue(value);
         experience1.setLevel(level);

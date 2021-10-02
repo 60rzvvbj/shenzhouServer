@@ -25,10 +25,10 @@ public interface ExchangeGiftMapper {
     @Update("update exchangegift set state = #{status} where id = #{id}")
     int modifyExchangeGift(ExchangeGift exchangegift);
 
-    @Select("select * from Exchangegift")
+    @Select("select * from exchangegift where state = #{status}")
     @Results(value = {@Result (column = "etime", property = "eTime"),
             @Result (column = "state", property = "status")})
-    List<ExchangeGift> getAllExchangeGift();
+    List<ExchangeGift> getAllExchangeGift(int status);
 
     @Select("select * from Exchangegift where account = #{account}")
     List<ExchangeGift> getExchangeGiftByAccount(String account);

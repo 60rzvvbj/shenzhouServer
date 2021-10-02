@@ -4,9 +4,11 @@ import com.ycx.shenzhou.mapper.ArticleMapper;
 import com.ycx.shenzhou.mapper.ThumbMapper;
 import com.ycx.shenzhou.mapper.UserMapper;
 import com.ycx.shenzhou.pojo.Article;
+import com.ycx.shenzhou.pojo.Guide;
 import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.ArticleService;
 import com.ycx.shenzhou.service.ExperienceService;
+import com.ycx.shenzhou.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Service("ArticleService")
 public class ArticleServiceImpl implements ArticleService {
+
+    private final int ARTICLE_NUMBER = 12;
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -49,6 +53,31 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> getArticleByProvince(String province, int page) {
         return articleMapper.getArticleByProvince(province, page * NUMBER, NUMBER);
+    }
+
+    @Override
+    public List<Article> getRandomArticle() {
+        List<Article> articles = articleMapper.getAllArticle();
+        List<Article> res = new LinkedList<>();
+
+        int n = articles.size();
+        int len = ARTICLE_NUMBER;
+
+        // 如果总数大于ARTICLE_NUMBER则在其中随机抽取12个，不可以重复
+        if(n > len) {
+            int[] randomNum = RandomUtil.getRandomNum(n, len);
+            for(int i = 0; i < len; i++){
+                res.add(articles.get(randomNum[i]));
+            }
+        }
+
+        // 如果总数小于GUIDE_NUMBER则全部返回
+        else {
+            for (Article article : articles) {
+                res.add(article);
+            }
+        }
+        return res;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.ycx.shenzhou.service.impl;
 import com.ycx.shenzhou.mapper.ExchangeGiftMapper;
 import com.ycx.shenzhou.mapper.GiftMapper;
 import com.ycx.shenzhou.pojo.Gift;
+import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
