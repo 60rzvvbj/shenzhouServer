@@ -136,7 +136,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public boolean rewardArticle(String account, String id, int quota) {
-        int money = 1; // 其他用户给自己的文章打赏，被打赏的用户会额外增加1金币
         int flag = -1;
         for (int i = 0; i < REWARD_COST.length; i++) {
             if (quota == REWARD_COST[i]) {
@@ -157,7 +156,7 @@ public class ArticleServiceImpl implements ArticleService {
         user.setBalance(user.getBalance() - quota); // 余额减少
         String authorAccount = article.getAccount(); // 通过文章ID获取到作者的账号
         User author = userMapper.getUserByAccount(authorAccount); // 通过账号获取到作者的对象
-        author.setBalance(author.getBalance() + REWARD_INCOME[flag] + money); // 余额增加
+        author.setBalance(author.getBalance() + REWARD_INCOME[flag]); // 余额增加
         return userMapper.modifyBalance(user) > 0 && userMapper.modifyBalance(author) > 0;
     }
 
