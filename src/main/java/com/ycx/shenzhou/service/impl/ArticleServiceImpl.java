@@ -141,13 +141,14 @@ public class ArticleServiceImpl implements ArticleService {
         for (int i = 0; i < REWARD_COST.length; i++) {
             if (quota == REWARD_COST[i]) {
                 flag = i;
+                break;
             }
         }
         if(flag == -1){
             return false;
         }
 
-        Article article = articleMapper.getArticleById("id"); // 获取到相关文章
+        Article article = articleMapper.getArticleById(id); // 获取到相关文章
         if(article == null) {
              return false;
         }
