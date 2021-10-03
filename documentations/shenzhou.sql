@@ -22,7 +22,7 @@ create table article
     placename   varchar(30),                    -- 景点名
     province    varchar(20),                    -- 景点所在省份
     releasetime bigint,                         -- 发布时间
-    content     varchar(100),                   -- 文章内容
+    content     varchar(3000),                  -- 文章内容
     account     varchar(20)                     -- 作者账号
     -- 点赞数通过其它表计算
 );
@@ -185,8 +185,28 @@ select *
 from guide
 where id = id;
 
+select *
+from consult
+where gid = 19;
+
+select *
+from guide
+where account = 002;
+
+alter table guideapply
+    add column status int;
+
+select article.*, if(thumb is null, 0, thumb) as thumb
+from article
+left join (
+    select aid, count(aid) as thumb
+    from thumb
+	group by aid
+) as t
+on id = aid
+where id = 3;
+
+select aid, count(aid) as thumb
+    from thumb group by aid;
+
 select * from consult where gid = 19;
-
-select * from guide where account = 002;
-
-alter table guideapply add column status int;

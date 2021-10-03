@@ -166,7 +166,10 @@ public class UserController {
             data.username = user.getUsername();
             data.other = user.getOther();
             data.level = experienceService.getExperienceByAccount(account).getLevel();
-            data.headPortraitUrl = pictureService.getUserHeadPortraitUrl(account);
+
+            String headPortraitUrl = pictureService.getUserHeadPortraitUrl(userService.getToken(account));
+            data.headPortraitUrl = headPortraitUrl != null ? headPortraitUrl : pictureService.getDefaultPictureUrl(1);
+
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("获取成功");

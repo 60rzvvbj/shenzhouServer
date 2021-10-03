@@ -25,6 +25,9 @@ public interface PictureService {
     // 获取礼物图片路径
     String getGiftPhotoUrl(String id);
 
+    // 获取文章图片路径
+    String getArticlePhotoUrl(String id);
+
     // 通过ID获取图片信息
     Picture getPicture(String id);
 

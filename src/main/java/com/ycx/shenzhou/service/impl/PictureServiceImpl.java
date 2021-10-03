@@ -104,6 +104,11 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
+    public String getArticlePhotoUrl(String id) {
+        return pictureMapper.getArticlePicture(id);
+    }
+
+    @Override
     public Picture getPicture(String id) {
         return null;
     }

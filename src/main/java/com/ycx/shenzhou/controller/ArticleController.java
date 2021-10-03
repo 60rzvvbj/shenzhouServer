@@ -171,7 +171,7 @@ public class ArticleController {
         return JSONUtil.objectToString(baseResult);
     }
 
-    @GetMapping("getRandomArticles")
+    @GetMapping("/getRandomArticles")
     public String getRandomArticles() {
         BaseResult baseResult;
         List<Article> articles = articleService.getRandomArticle();
@@ -217,6 +217,7 @@ public class ArticleController {
         public String authorUsername;
         public int thumb;
         public boolean isThumb;
+        public String photoUrl;
     }
 
     @GetMapping("/getArticle")
@@ -239,6 +240,7 @@ public class ArticleController {
             articleData.authorUsername = userService.getUserInfo(article.getAccount()).getUsername();
             articleData.thumb = article.getThumb();
             articleData.isThumb = articleService.isThumb(account, id);
+            articleData.photoUrl = pictureService.getArticlePhotoUrl(id);
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setData(articleData);

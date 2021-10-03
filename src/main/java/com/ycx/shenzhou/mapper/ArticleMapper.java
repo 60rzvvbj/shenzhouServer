@@ -10,17 +10,18 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper {
 
-    @Select("select article.*, if(thumb is null, 0, thumb)\n" +
+    @Select("select article.*, if(thumb is null, 0, thumb) as thumb\n" +
             "from article \n" +
             "left join (\n" +
             "\tselect aid, count(aid) as thumb\n" +
             "\tfrom thumb\n" +
+            "\tgroup by aid\n" +
             ") as t\n" +
             "on id = aid\n" +
             "where id = #{id};")
     Article getArticleById(String id);
 
-    @Select("select article.*, if(thumb is null, 0, thumb)\n" +
+    @Select("select article.*, if(thumb is null, 0, thumb) as thumb\n" +
             "from article\n" +
             "left join (\n" +
             "\tselect aid, count(aid) as thumb\n" +
@@ -32,7 +33,7 @@ public interface ArticleMapper {
     List<Article> getArticleByPage(int page, int number);
 
 
-    @Select("select article.*, if(thumb is null, 0, thumb)\n" +
+    @Select("select article.*, if(thumb is null, 0, thumb) as thumb\n" +
             "from article\n" +
             "left join (\n" +
             "\tselect aid, count(aid) as thumb\n" +

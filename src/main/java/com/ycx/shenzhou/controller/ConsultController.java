@@ -137,6 +137,8 @@ public class ConsultController {
         String account = (String) request.getAttribute("account");
         String gid = guideService.getGuide(account).getId();
         List<Consult> consults = consultService.getGuideConsult(gid);
+        System.out.println(gid);
+        System.out.println(JSONUtil.objectToString(consults));
         BaseResult baseResult;
 
         if (consults != null) {
