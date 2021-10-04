@@ -10,9 +10,13 @@ import java.util.List;
 @Mapper
 public interface ExchangeGiftMapper {
     @Select("select * from exchangegift where id = #{id}")
+    @Results(value = {@Result (column = "etime", property = "eTime"),
+            @Result (column = "state", property = "status")})
     ExchangeGift getExchangeGiftById(String id);
 
     @Select("select account from exchangegift where gid = #{gid}")
+    @Results(value = {@Result (column = "etime", property = "eTime"),
+            @Result (column = "state", property = "status")})
     List<String> getExchangeGiftAccountByGid(String gid);
 
     @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{eTime}, #{address}, #{status})")
@@ -30,6 +34,13 @@ public interface ExchangeGiftMapper {
             @Result (column = "state", property = "status")})
     List<ExchangeGift> getAllExchangeGift(int status);
 
-    @Select("select * from Exchangegift where account = #{account}")
+    @Select("select * from exchangegift where account = #{account}")
+    @Results(value = {@Result (column = "etime", property = "eTime"),
+            @Result (column = "state", property = "status")})
     List<ExchangeGift> getExchangeGiftByAccount(String account);
+
+    @Select("select * from exchangegift where account = #{account} and gid = #{gid}")
+    @Results(value = {@Result (column = "etime", property = "eTime"),
+            @Result (column = "state", property = "status")})
+    ExchangeGift getExchangeGiftByAccountGid(String account, String gid);
 }

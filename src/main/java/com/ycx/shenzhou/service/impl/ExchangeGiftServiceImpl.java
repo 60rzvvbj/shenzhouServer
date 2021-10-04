@@ -32,9 +32,13 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
         User user = userMapper.getUserByAccount(account);
         String gid = exchangeGift.getGid(); // 获取礼物编号
         Gift gift = giftMapper.getGiftById(gid); // 获取礼物对象
+        ExchangeGift exchangeGift1 = exchangeGiftMapper.getExchangeGiftByAccountGid(account, gid); // 获取数据库中是否有此用户申请过该礼品
+        if (exchangeGift1 != null && exchangeGift1.getStatus() != -1) { // 该用户申请过该礼品，并且没有被拒
+            return null;
+        }
         int price = gift.getPrice(); // 礼物的价格
-        if (user.getBalance() < price) { // 余额不足，不能换
-            return "null";
+        if (user.getBalance() < price || gift.getStatus() == 1) { // 余额不足或者礼品已兑换，不能换
+            return null;
         }
         user.setBalance(user.getBalance() - price); // 可以换，先扣钱
         userMapper.modifyBalance(user); // 操作数据库用户表
@@ -48,7 +52,10 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
     public boolean acceptExchange(String id) { // 接受申请
         ExchangeGift exchangeGift = exchangeGiftMapper.getExchangeGiftById(id); // 从数据库中获取兑换申请
         exchangeGift.setStatus(1); // 把status置为邮寄中
-        return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0; // 修改数据库中对应的兑换申请
+        String gid = exchangeGift.getGid(); // 获取礼品编号
+        Gift gift = giftMapper.getGiftById(gid); // 获取礼品对象
+        gift.setStatus(1); // 礼品已兑换
+        return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0 && giftMapper.modifyGiftStatus(gift) > 0; // 修改数据库中对应的兑换申请和礼品状态
     }
 
     @Override
@@ -57,27 +64,31 @@ public class ExchangeGiftServiceImpl implements ExchangeGiftService {
         if(exchangeGift == null) {
             return false;
         }
-        exchangeGift.setStatus(-1); // 把status置为申请失败
-        if (exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0) {
-            String account = exchangeGift.getAccount(); // 获取用户账号
-            String gid = exchangeGift.getGid(); // 获取礼物编号
-            Gift gift = giftMapper.getGiftById(gid); // 获取礼物对象
-            int price = gift.getPrice(); // 礼物的价格
-            User user = userMapper.getUserByAccount(account); // 获取对应的用户
-            user.setBalance(user.getBalance() + price);
-            userMapper.modifyBalance(user); // 给用户返还钱
-            return true;
-        }
-        return false;
+        // exchangeGift.setStatus(-1);
+        // exchangeGiftMapper.modifyExchangeGift(exchangeGift);
+        String account = exchangeGift.getAccount(); // 获取用户账号
+        String gid = exchangeGift.getGid(); // 获取礼物编号
+        Gift gift = giftMapper.getGiftById(gid); // 获取礼物对象
+        int price = gift.getPrice(); // 礼物的价格
+        User user = userMapper.getUserByAccount(account); // 获取对应的用户
+        user.setBalance(user.getBalance() + price);
+        userMapper.modifyBalance(user); // 给用户返还钱
+        return exchangeGiftMapper.removeExchangeGift(id); // 从数据库删除兑换申请
     }
 
     @Override
     public boolean modifyExchangeStatus(String id, int status) {
         ExchangeGift exchangeGift = exchangeGiftMapper.getExchangeGiftById(id); // 从数据库中获取兑换申请
-        if(exchangeGift == null) {
+        if (exchangeGift == null) {
             return false;
         }
-        exchangeGift.setStatus(status); // 修改status
+        if (status == 1) {
+            return this.acceptExchange(id);
+        }
+        if (status == -1) {
+            return this.rejectExchange(id);
+        }
+        exchangeGift.setStatus(status); // 修改status，因为还有个2（已收货），先保留这两行代码
         return exchangeGiftMapper.modifyExchangeGift(exchangeGift) > 0; // 修改数据库中对应的兑换申请;
     }
 

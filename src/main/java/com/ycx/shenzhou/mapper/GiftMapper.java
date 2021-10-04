@@ -31,7 +31,7 @@ public interface GiftMapper {
     @Result(column = "describes", property = "describe")
     List<Gift> getAllGift();
 
-    @Select("select * from gift where status = 0")
+    @Select("select * from gift where status = #{status}")
     @Result(column = "describes", property = "describe")
-    List<Gift> getAllNotExchange();
+    List<Gift> getAllNotExchange(int status);
 }
