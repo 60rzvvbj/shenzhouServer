@@ -26,6 +26,7 @@ public class ExchangeGiftController {
     public String addExchangeGift(HttpServletRequest request, ExchangeGift exchangeGift) {
         String account = (String) request.getAttribute("account");
         exchangeGift.setAccount(account);
+        System.out.println(exchangeGift);
         String id = exchangeGiftService.addExchange(exchangeGift);
         BaseResult baseResult;
 

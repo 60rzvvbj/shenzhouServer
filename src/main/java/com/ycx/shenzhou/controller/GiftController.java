@@ -40,7 +40,7 @@ public class GiftController {
             if (res) {
                 Picture picture = new Picture();
                 picture.setId(pictureId);
-                picture.setPositionType(2);
+                picture.setPositionType(3);
                 picture.setSpecificPosition(Integer.parseInt(id));
 
                 res = pictureService.modifyMeaning(picture);

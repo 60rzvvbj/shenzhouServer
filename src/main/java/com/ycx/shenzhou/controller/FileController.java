@@ -33,12 +33,17 @@ public class FileController {
         public String url;
     }
 
-    @PostMapping("/uploadFile")
+    @PostMapping("/uploadPicture")
     public String uploadFile(HttpServletRequest request) throws IOException {
         MultipartFile img = ((MultipartHttpServletRequest) request).getFile("file");
 
         Picture picture = new Picture();
         String fileName = pictureService.getRandomFileName();
+
+        // 文件名加后缀
+        String[] strArr = img.getOriginalFilename().split("\\.");
+        fileName += "." + strArr[strArr.length - 1];
+
         boolean res = pictureService.uploadFile(img, fileName, picture);
 
         BaseResult baseResult;
@@ -93,7 +98,7 @@ public class FileController {
         return JSONUtil.objectToString(baseResult);
     }
 
-    @PostMapping("reUploadPicture")
+    @PostMapping("/reUploadPicture")
     public String reUploadPicture(HttpServletRequest request, Picture picture) {
         MultipartFile img = ((MultipartHttpServletRequest) request).getFile("file");
 

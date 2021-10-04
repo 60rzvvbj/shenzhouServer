@@ -41,7 +41,7 @@ public class GiftServiceImpl implements GiftService {
     @Override
     public boolean removeGift(String id) { // 移除礼品
         List<String> account = exchangeGiftMapper.getExchangeGiftAccountByGid(id);
-        if (account == null) {
+        if (account == null || account.size() == 0) {
             return giftMapper.removeGift(id); // 从数据库中移除礼品
         }
         return false;

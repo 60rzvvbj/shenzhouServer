@@ -19,8 +19,8 @@ public interface PictureMapper {
     @Delete("delete from picture where id = #{id}")
     int removePicture(String id);
 
-    @Update("update picture set positiontype = #{positionType} and specificposition = #{specificPosition} where id = #{id}")
-    int modifyMeaning();
+    @Update("update picture set positiontype = #{positionType}, specificposition = #{specificPosition} where id = #{id}")
+    int modifyMeaning(Picture picture);
 
     @Select("select url from picture where positiontype = 1 and specificposition = #{token}")
     String getUserHeadPortraitUrl(String token);

@@ -80,7 +80,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public boolean modifyMeaning(Picture picture) {
-        return pictureMapper.modifyMeaning() > 0;
+        return pictureMapper.modifyMeaning(picture) > 0;
     }
 
     @Override
