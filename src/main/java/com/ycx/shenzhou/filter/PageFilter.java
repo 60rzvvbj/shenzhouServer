@@ -14,7 +14,14 @@ public class PageFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String uri = req.getRequestURI();
-        System.out.println(uri);
+        String display = uri;
+        for (int i = uri.length(); i < 30; i++) {
+            display += " ";
+        }
+        for (String attr : servletRequest.getParameterMap().keySet()) {
+            display += attr + "=" + servletRequest.getParameter(attr) + " ";
+        }
+        System.out.println(display);
 
         String[] pages = {"/", "/home"};
         for (String allowUri : pages) {

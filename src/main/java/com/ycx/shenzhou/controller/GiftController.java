@@ -140,10 +140,10 @@ public class GiftController {
             data.name = gift.getName();
             data.describe = gift.getDescribe();
             data.price = gift.getPrice();
-            data.photo = pictureService.getGiftPhotoUrl(gift.getId());
-            if (data.photo == null) {
-                data.photo = pictureService.getDefaultPictureUrl(3);
-            }
+
+            Picture photo = pictureService.getGiftPhoto(gift.getId());
+            String photoUrl = photo != null ? photo.getUrl() : null;
+            data.photo = photoUrl != null ? photoUrl : pictureService.getDefaultPictureUrl(3);
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setMessage("获取成功");

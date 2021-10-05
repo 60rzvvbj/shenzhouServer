@@ -22,14 +22,14 @@ public interface PictureMapper {
     @Update("update picture set positiontype = #{positionType}, specificposition = #{specificPosition} where id = #{id}")
     int modifyMeaning(Picture picture);
 
-    @Select("select url from picture where positiontype = 1 and specificposition = #{token}")
-    String getUserHeadPortraitUrl(String token);
+    @Select("select * from picture where positiontype = 1 and specificposition = #{token}")
+    Picture getUserHeadPortrait(String token);
 
-    @Select("select url from picture where positiontype = 2 and specificposition = #{aid}")
-    String getArticlePicture(String aid);
+    @Select("select * from picture where positiontype = 2 and specificposition = #{aid}")
+    Picture getArticlePicture(String aid);
 
-    @Select("select url from picture where positiontype = 3 and specificposition = #{gid}")
-    String getGiftPicture(String gid);
+    @Select("select * from picture where positiontype = 3 and specificposition = #{gid}")
+    Picture getGiftPicture(String gid);
 
     @Select("select count(*) from picture where url = #{url}")
     int urlIsExist(String url);

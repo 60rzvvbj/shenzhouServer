@@ -20,18 +20,21 @@ public interface PictureService {
     String getDefaultPictureUrl(int type);
 
     // 获取用户头像路径
-    String getUserHeadPortraitUrl(String account);
+    Picture getUserHeadPortrait(String account);
 
     // 获取礼物图片路径
-    String getGiftPhotoUrl(String id);
+    Picture getGiftPhoto(String id);
 
     // 获取文章图片路径
-    String getArticlePhotoUrl(String id);
+    Picture getArticlePhoto(String id);
 
     // 通过ID获取图片信息
     Picture getPicture(String id);
 
     // 获取文件
     File getFile(String url);
+
+    // 删除图片
+    boolean removePicture(String id);
 
 }

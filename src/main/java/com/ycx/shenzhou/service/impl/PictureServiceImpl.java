@@ -94,28 +94,43 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public String getUserHeadPortraitUrl(String token) {
-        return pictureMapper.getUserHeadPortraitUrl(token);
+    public Picture getUserHeadPortrait(String token) {
+        return pictureMapper.getUserHeadPortrait(token);
     }
 
     @Override
-    public String getGiftPhotoUrl(String id) {
+    public Picture getGiftPhoto(String id) {
         return pictureMapper.getGiftPicture(id);
     }
 
     @Override
-    public String getArticlePhotoUrl(String id) {
+    public Picture getArticlePhoto(String id) {
         return pictureMapper.getArticlePicture(id);
     }
 
     @Override
     public Picture getPicture(String id) {
-        return null;
+        return pictureMapper.getPictureById(id);
     }
 
     @Override
     public File getFile(String url) {
         return new File("data\\" + url);
+    }
+
+    @Override
+    public boolean removePicture(String id) {
+        Picture picture = pictureMapper.getPictureById(id);
+        if (removeFile(picture.getUrl())) {
+            return pictureMapper.removePicture(id) > 0;
+        } else {
+            return false;
+        }
+    }
+
+    // 删除文件
+    private boolean removeFile(String url) {
+        return getFile(url).delete();
     }
 
 }

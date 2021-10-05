@@ -240,7 +240,9 @@ public class ArticleController {
             articleData.authorUsername = userService.getUserInfo(article.getAccount()).getUsername();
             articleData.thumb = article.getThumb();
             articleData.isThumb = articleService.isThumb(account, id);
-            articleData.photoUrl = pictureService.getArticlePhotoUrl(id);
+
+            Picture photo = pictureService.getArticlePhoto(id);
+            articleData.photoUrl = photo != null ? photo.getUrl() : null;
 
             baseResult = BaseResult.getSuccessBaseData();
             baseResult.setData(articleData);

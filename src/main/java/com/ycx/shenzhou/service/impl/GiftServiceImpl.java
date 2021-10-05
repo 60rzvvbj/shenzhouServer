@@ -3,11 +3,13 @@ package com.ycx.shenzhou.service.impl;
 import com.ycx.shenzhou.mapper.ExchangeGiftMapper;
 import com.ycx.shenzhou.mapper.GiftMapper;
 import com.ycx.shenzhou.pojo.Gift;
-import com.ycx.shenzhou.pojo.User;
+import com.ycx.shenzhou.pojo.Picture;
 import com.ycx.shenzhou.service.GiftService;
+import com.ycx.shenzhou.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 @Service("GiftService")
@@ -18,6 +20,9 @@ public class GiftServiceImpl implements GiftService {
 
     @Autowired
     private ExchangeGiftMapper exchangeGiftMapper;
+
+    @Autowired
+    private PictureService pictureService;
 
     @Override
     public String addGift(Gift gift) { // 添加礼品
@@ -42,7 +47,12 @@ public class GiftServiceImpl implements GiftService {
     public boolean removeGift(String id) { // 移除礼品
         List<String> account = exchangeGiftMapper.getExchangeGiftAccountByGid(id);
         if (account == null || account.size() == 0) {
-            return giftMapper.removeGift(id); // 从数据库中移除礼品
+            Picture giftPhoto = pictureService.getGiftPhoto(id);
+            if (giftPhoto.getUrl() != null) {
+                if (pictureService.removePicture(giftPhoto.getId())) {
+                    return giftMapper.removeGift(id); // 从数据库中移除礼品
+                }
+            }
         }
         return false;
     }

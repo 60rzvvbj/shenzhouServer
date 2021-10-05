@@ -1,6 +1,7 @@
 package com.ycx.shenzhou.controller;
 
 import com.ycx.shenzhou.pojo.Experience;
+import com.ycx.shenzhou.pojo.Picture;
 import com.ycx.shenzhou.pojo.User;
 import com.ycx.shenzhou.service.*;
 import com.ycx.shenzhou.util.JSONUtil;
@@ -114,7 +115,8 @@ public class UserController {
             data.level = experience.getLevel();
 
             // 用户头像路径
-            String headPortraitUrl = pictureService.getUserHeadPortraitUrl(userService.getToken(account));
+            Picture headPortrait = pictureService.getUserHeadPortrait(userService.getToken(account));
+            String headPortraitUrl = headPortrait != null ? headPortrait.getUrl() : null;
             data.headPortraitUrl = headPortraitUrl != null ? headPortraitUrl : pictureService.getDefaultPictureUrl(1);
 
             // 是否为导游
@@ -167,7 +169,8 @@ public class UserController {
             data.other = user.getOther();
             data.level = experienceService.getExperienceByAccount(account).getLevel();
 
-            String headPortraitUrl = pictureService.getUserHeadPortraitUrl(userService.getToken(account));
+            Picture headPortrait = pictureService.getUserHeadPortrait(userService.getToken(account));
+            String headPortraitUrl = headPortrait != null ? headPortrait.getUrl() : null;
             data.headPortraitUrl = headPortraitUrl != null ? headPortraitUrl : pictureService.getDefaultPictureUrl(1);
 
 
