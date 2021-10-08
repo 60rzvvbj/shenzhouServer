@@ -15,8 +15,6 @@ public interface ExchangeGiftMapper {
     ExchangeGift getExchangeGiftById(String id);
 
     @Select("select account from exchangegift where gid = #{gid}")
-    @Results(value = {@Result (column = "etime", property = "eTime"),
-            @Result (column = "state", property = "status")})
     List<String> getExchangeGiftAccountByGid(String gid);
 
     @Insert("insert into exchangegift values(null, #{account}, #{gid}, #{eTime}, #{address}, #{status})")
