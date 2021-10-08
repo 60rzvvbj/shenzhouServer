@@ -40,7 +40,6 @@ public class CollageServiceImpl implements CollageService {
     @Override
     public String addCollage(Collage collage) { // 发起拼团
         int experience = 10; // 发起拼团加10点经验值
-        collage.setdTime(new Date().getTime());
         collageMapper.addCollage(collage); // 在数据库添加新的拼团信息
         String account = collage.getAccount(); // 获取发起人账号
         experienceService.addExperience(account, experience);
