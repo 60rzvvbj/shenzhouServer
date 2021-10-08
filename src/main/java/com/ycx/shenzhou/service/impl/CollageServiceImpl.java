@@ -27,6 +27,7 @@ public class CollageServiceImpl implements CollageService {
     @Autowired
     private ParticipateMapper participateMapper;
 
+
     @Autowired
     private UserMapper userMapper;
 
@@ -66,6 +67,15 @@ public class CollageServiceImpl implements CollageService {
 
     @Override
     public boolean joinCollage(String account, String id) { // 加入拼团
+        Collage collage = collageMapper.getCollageById(id);
+        int pnumber = collage.getpNumber();
+        List<String> paticipate = participateMapper.getPaticipateById(id);
+        if (paticipate.size() == pnumber) {
+            return false;
+        }
+        for (String s : paticipate) {
+            if (s.equals(account)) return false;
+        }
         if (participateMapper.addParticipate(account, id) > 0) { // 在数据库中添加拼团记录
             int experience = 2; // 参与拼团加2点经验值
             experienceService.addExperience(account, experience);
