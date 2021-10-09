@@ -89,8 +89,24 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public List<Guide> getRandomGuide() {
         List<Guide> guides = guideMapper.getAllGuide();
-        List<Guide> res = new LinkedList<>();
+        for (Guide value : guides) {
+            String id = value.getId();
+            List<Consult> consults = consultMapper.getConsultByGid(id);
+            int cnt = 0, sum = 0;
+            for (Consult consult : consults) {
+                if (consult.getStage() == 2 || consult.getStage() == 3) {
+                    cnt++;
+                    sum += consult.getScore();
+                }
+            }
+            if (cnt == 0) {
+                value.setScore(-1);
+            } else {
+                value.setScore(1.0 * sum / cnt);
+            }
+        }
 
+        List<Guide> res = new LinkedList<>();
         int n = guides.size();
         int len = GUIDE_NUMBER;
 
