@@ -102,7 +102,7 @@ public class GuideServiceImpl implements GuideService {
             if (cnt == 0) {
                 value.setScore(-1);
             } else {
-                value.setScore(1.0 * sum / cnt);
+                value.setScore((int)(1.0 * sum / cnt * 10) / 10.0);
             }
         }
 
