@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ExperienceService experienceService;
 
     // 每页的数量
-    private final int NUMBER = 10;
+    private final int NUMBER = 8;
 
     // 打赏对照表
     private final int[] REWARD_COST = {6, 18, 30, 68, 198, 328, 648};
