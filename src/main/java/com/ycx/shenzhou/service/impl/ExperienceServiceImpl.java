@@ -39,7 +39,7 @@ public class ExperienceServiceImpl implements ExperienceService {
         int value = experience1.getValue(); // 初始经验
         int money = 0; // 获得金币初始化为0
         value += experience;
-        if (level <= EXPERIENCE_LEVER.length && value >= EXPERIENCE_LEVER[level - 1]) {
+        while (level <= EXPERIENCE_LEVER.length && value >= EXPERIENCE_LEVER[level - 1]) {
             value -= EXPERIENCE_LEVER[level - 1];
             money += GOLD_AWARD[level - 1];
             level++;
