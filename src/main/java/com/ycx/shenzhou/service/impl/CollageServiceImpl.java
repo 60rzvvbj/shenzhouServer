@@ -19,7 +19,7 @@ import java.util.List;
 @Service("CollageService")
 public class CollageServiceImpl implements CollageService {
 
-    private final int COLLAGE_NUMBER = 11;
+    private final int COLLAGE_NUMBER = 8;
 
     @Autowired
     private CollageMapper collageMapper;
