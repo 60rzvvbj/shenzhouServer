@@ -43,9 +43,11 @@ public class GuideServiceImpl implements GuideService {
                 sum += consult.getScore();
             }
         }
-        guide.setScore(1.0 * sum / cnt);
         if (cnt == 0) {
             guide.setScore(-1);
+        }
+        else {
+            guide.setScore(1.0 * sum / cnt);
         }
         return guide;
     }
@@ -64,9 +66,11 @@ public class GuideServiceImpl implements GuideService {
                 sum += consult.getScore();
             }
         }
-        guide.setScore(1.0 * sum / cnt);
         if (cnt == 0) {
             guide.setScore(-1);
+        }
+        else {
+            guide.setScore(1.0 * sum / cnt);
         }
         return guide;
     }
