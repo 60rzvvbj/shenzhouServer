@@ -41,4 +41,5 @@ public interface ConsultMapper {
 
     @Select("select score from consult where gid = #{gid}")
     List<Integer> getScoreById(String id);
+
 }

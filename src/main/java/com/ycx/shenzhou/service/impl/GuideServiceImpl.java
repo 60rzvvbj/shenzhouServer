@@ -1,6 +1,8 @@
 package com.ycx.shenzhou.service.impl;
 
+import com.ycx.shenzhou.mapper.ConsultMapper;
 import com.ycx.shenzhou.mapper.GuideMapper;
+import com.ycx.shenzhou.pojo.Consult;
 import com.ycx.shenzhou.pojo.Guide;
 import com.ycx.shenzhou.service.GuideService;
 import com.ycx.shenzhou.util.RandomUtil;
@@ -18,6 +20,9 @@ public class GuideServiceImpl implements GuideService {
     @Autowired
     private GuideMapper guideMapper;
 
+    @Autowired
+    private ConsultMapper consultMapper;
+
     @Override
     public boolean isGuide(String account) {
         return guideMapper.getGuideByAccount(account) != null;
@@ -25,12 +30,45 @@ public class GuideServiceImpl implements GuideService {
 
     @Override
     public Guide getGuide(String account) {
-        return guideMapper.getGuideByAccount(account);
+        Guide guide = guideMapper.getGuideByAccount(account);
+        if (guide == null) {
+            return null;
+        }
+        String id = guide.getId();
+        List<Consult> consults = consultMapper.getConsultByGid(id);
+        int cnt = 0, sum = 0;
+        for (Consult consult : consults) {
+            if (consult.getStage() == 2 || consult.getStage() == 3) {
+                cnt++;
+                sum += consult.getScore();
+            }
+        }
+        guide.setScore(1.0 * sum / cnt);
+        if (cnt == 0) {
+            guide.setScore(-1);
+        }
+        return guide;
     }
 
     @Override
     public Guide getGuideById(String id) {
-        return guideMapper.getGuideById(id);
+        Guide guide = guideMapper.getGuideById(id);
+        if (guide == null) {
+            return null;
+        }
+        List<Consult> consults = consultMapper.getConsultByGid(id);
+        int cnt = 0, sum = 0;
+        for (Consult consult : consults) {
+            if (consult.getStage() == 2 || consult.getStage() == 3) {
+                cnt++;
+                sum += consult.getScore();
+            }
+        }
+        guide.setScore(1.0 * sum / cnt);
+        if (cnt == 0) {
+            guide.setScore(-1);
+        }
+        return guide;
     }
 
     @Override
